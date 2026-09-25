@@ -1,56 +1,60 @@
-# Báo cáo nhóm — RAG tuyển sinh VinUni
+# RAG evaluation results
 
-**Ngày:** 25/09/2026 · **Bản đo Gemini:** `ee0708c` · **Bản đo OpenRouter:** `dc37986`
+## Run information
 
-## Dữ liệu và pipeline
+| Field                              | Value |
+| ---------------------------------- | ----- |
+| Evaluation date                    | 25/09/2026 (23:21, giờ Việt Nam) |
+| Framework and version              | Ragas 0.4.3 |
+| Evaluator model                    | OpenRouter `openai/gpt-4o-mini` |
+| Generator model                    | OpenRouter `openai/gpt-4o-mini` |
+| Embedding model                    | Retrieval: `BAAI/bge-m3`; chấm answer relevance: `openai/text-embedding-3-small` |
+| Corpus version/commit              | Corpus tại `ee0708c` (không đổi trong lượt đo); code đánh giá tại `dc37986`. Gồm 3 tài liệu chính sách, 5 trang tuyển sinh, 224 chunks. |
+| Golden dataset size                | 15 câu hỏi có đáp án và context tham chiếu |
+| `top_k`                            | 5 |
+| Fallback threshold and calibration | Cosine `0,55`, hiệu chỉnh trên 7 câu đúng chủ đề (thấp nhất `0,6203`) và 7 câu ngoài chủ đề (cao nhất `0,4799`). Fallback không tham gia A/B; PageIndex chưa được kiểm chứng qua API thật vì chưa có key. |
 
-- Corpus gồm 3 tài liệu chính sách và 5 trang tuyển sinh VinUni; 15 câu hỏi và đáp án tham chiếu trong `group_project/evaluation/golden_dataset.json`.
-- Tài liệu được chuẩn hóa thành Markdown, chia thành 224 chunks, embed bằng `BAAI/bge-m3` và lưu trong ChromaDB. Retrieval gồm dense, BM25L và hợp nhất RRF; chatbot dùng Streamlit.
-- Ngưỡng fallback `0,55` được chọn từ 7 câu đúng chủ đề (cosine thấp nhất `0,6203`) và 7 câu ngoài chủ đề (cao nhất `0,4799`), theo `calibration_result.json`. Chưa kiểm chứng PageIndex qua API thật.
+## Configurations
 
-## A/B comparison — So sánh retrieval
+- **Config A — dense-only:** Tìm kiếm vector bằng `BAAI/bge-m3` trên ChromaDB, lấy 5 đoạn có cosine score cao nhất.
+- **Config B — hybrid + RRF:** Lấy tối đa 10 đoạn từ dense và 10 đoạn từ BM25L, hợp nhất bằng RRF một lần, trả 5 đoạn đầu.
 
-Trên **cùng 15 câu golden**, `top_k=5`: A dùng dense; B dùng dense + BM25L + RRF. Hai cấu hình dùng cùng prompt và Gemini `gemini-3.5-flash-lite` để tạo câu trả lời và chấm bằng Ragas `0.4.3`; fallback không tham gia A/B. Kết quả chi tiết ở `reports/ab_ragas_results.json`.
+Hai config dùng cùng 15 câu golden, generator, evaluator, prompt và `top_k`; chỉ thay retrieval strategy.
 
-| Chỉ số | A: dense | B: hybrid |
-|---|---:|---:|
-| Nguồn đúng trong top 5 | 15/15 | 15/15 |
-| MRR@5 theo file nguồn | 1,000 | 0,933 |
+## Overall scores
 
-Chỉ số trên đo **file nguồn**, chưa khẳng định chunk chứa đúng bằng chứng. Hybrid đưa file nguồn của 2 câu về hạng 2 thay vì hạng 1.
+| Metric            | Config A | Config B | Delta B−A |
+| ----------------- | -------: | -------: | --------: |
+| Faithfulness      |   0,8333 |   0,7722 |   −0,0611 |
+| Answer relevance  |   0,8626 |   0,8390 |   −0,0236 |
+| Context recall    |   0,9000 |   0,9000 |    0,0000 |
+| Context precision |   0,8748 |   0,7111 |   −0,1637 |
+| **Average**       | **0,8677** | **0,8056** | **−0,0621** |
 
-## Overall scores — Đánh giá câu trả lời
+## A/B comparison
 
-| Chỉ số Ragas (trung bình 15 câu) | A: dense | B: hybrid | B − A |
-|---|---:|---:|---:|
-| Faithfulness | 0,889 | 0,778 | −0,111 |
-| Answer relevance | 0,791 | 0,809 | +0,018 |
-| Context recall | 0,933 | 0,933 | 0,000 |
-| Context precision | 0,813 | 0,650 | −0,163 |
-| **Trung bình 4 chỉ số** | **0,857** | **0,793** | **−0,064** |
+- Cấu hình tốt hơn: **A (dense-only)** trên lượt đo này.
+- Evidence: A cao hơn B ở faithfulness, answer relevance và context precision; context recall bằng nhau. Cả 15 câu đều có đủ bốn điểm cho hai cấu hình trong `reports/openrouter_full.json`. Chênh lệch lớn nhất là context precision (`−0,1637` cho B), cho thấy danh sách hybrid chứa thêm đoạn kém liên quan theo bộ chấm hiện tại.
+- Trade-off về latency/cost: B cần thêm BM25L và RRF; chưa lưu thời gian xử lý và chi phí API theo từng cấu hình, nên chưa định lượng được chênh lệch. Số điểm trên là chất lượng câu trả lời, không phải số đo tốc độ hay chi phí.
 
-Dense cao hơn ở faithfulness và context precision, bằng ở context recall; hybrid nhỉnh hơn nhẹ ở answer relevance. Hai câu khó nhất là **bốn phẩm chất tuyển sinh** và **quy định nâng cấp học bổng**: cả A/B đều bỏ sót chunk chứa bằng chứng trực tiếp từ nguồn được hỏi, nên model trả lời sai hoặc từ chối. Điểm do LLM chấm cần đọc cùng câu trả lời gốc; chưa đo chi phí/độ trễ API. Đây là lượt Gemini hoàn tất trước đó; file đo lại `reports/ab_ragas_rerun.json` mới có 2/15 câu do Gemini bị giới hạn lượt gọi, nên không dùng để kết luận.
+## Worst performers
 
-## Đo lại bằng OpenRouter — 15 câu
+|  # | Question | Config | Faithfulness | Relevance | Recall | Precision | Failure stage             | Root cause |
+| -: | -------- | ------ | -----------: | --------: | -----: | --------: | ------------------------- | ---------- |
+|  1 | Bốn phẩm chất ứng viên VinUni nên thể hiện (câu 6) | B | 0,0000 | 0,9080 | 0,0000 | 0,0000 | retrieval/generation | Top 5 có file `article_03` nhưng thiếu `news/article_03.md::chunk-2` chứa đáp án; model nêu sai cả bộ bốn phẩm chất. |
+|  2 | Bốn phẩm chất ứng viên VinUni nên thể hiện (câu 6) | A | 0,3333 | 0,9052 | 0,0000 | 0,4167 | retrieval/generation | Cũng thiếu `chunk-2`; câu trả lời thay **Commitment** bằng **Academic**. |
+|  3 | Có phải nộp đơn riêng cho học bổng merit-based (câu 3) | B | 1,0000 | 0,9645 | 0,5000 | 0,2000 | retrieval | Câu trả lời đúng nhưng Ragas chỉ đánh giá một phần nhỏ trong 5 đoạn lấy về là hữu ích; context chứa nhiều đoạn không phục vụ câu hỏi. |
 
-Ngày 25/09/2026, chạy lại cùng 15 câu và `top_k=5` với `openai/gpt-4o-mini` qua OpenRouter cho cả tạo câu trả lời và chấm Ragas; answer relevance dùng `openai/text-embedding-3-small`. File kết quả đầy đủ: `reports/openrouter_full.json` (`status=complete`, 15/15 câu, đủ bốn điểm cho A/B).
+## Recommendations
 
-| Chỉ số Ragas | A: dense | B: hybrid |
-|---|---:|---:|
-| Faithfulness | 0,833 | 0,772 |
-| Answer relevance | 0,863 | 0,839 |
-| Context recall | 0,900 | 0,900 |
-| Context precision | 0,875 | 0,711 |
-| **Trung bình 4 chỉ số** | **0,868** | **0,806** |
+| Priority | Action | Evidence from failure analysis | Expected impact | How to verify |
+| -------: | ------ | ------------------------------ | --------------- | ------------- |
+| 1 | Thử bổ sung đoạn liền kề khi retrieval lấy trúng file nguồn nhưng thiếu đoạn trả lời. | Câu 6: cả A/B bỏ sót `news/article_03.md::chunk-2`; recall đều bằng 0 và đáp án sai. | Có thêm bằng chứng về đúng bốn phẩm chất trong context; chưa khẳng định điểm sẽ tăng trước khi đo lại. | Kiểm tra `chunk-2` trong top 5/context, câu trả lời nêu đủ **Outstanding Ability, Aspiration, Creativity, Commitment**, rồi chạy lại 15 câu. |
+| 2 | Giảm đoạn nhiễu ở hybrid bằng điều chỉnh RRF hoặc bước rerank theo mức liên quan, giữ cùng `top_k=5`. | Câu 3 của B có context precision `0,2000`; trung bình context precision B thấp hơn A `0,1637`. | Dự kiến tăng context precision mà không làm giảm context recall. | So sánh lại 4 metric trên cùng 15 câu với baseline A/B, đồng thời xem top 5 của câu 3. |
+| 3 | Bảo đảm câu hỏi theo mã quy định dẫn đúng đoạn pháp lý trước khi tạo citation. | Câu 14: cả A/B thiếu `legal/GDL-SAM-004-V2.1_Scholarship-Financial-Aid_2025.md::chunk-8`; câu trả lời OpenRouter dựa trên bài viết thay vì điều khoản gốc. | Câu trả lời có bằng chứng trực tiếp từ văn bản được hỏi. | Kiểm tra `chunk-8` xuất hiện trong context và `[Document n]` trỏ đúng văn bản GDL-SAM-004-V2.1; đo lại 15 câu để kiểm tra tác động chung. |
 
-Ở lượt này, dense cao hơn hybrid trên ba chỉ số và bằng ở context recall. Câu về **bốn phẩm chất tuyển sinh** vẫn yếu nhất: cả hai cấu hình có context recall bằng 0; câu trả lời B nêu sai bốn phẩm chất. Không so sánh trực tiếp mức điểm tuyệt đối giữa lượt Gemini và OpenRouter vì model tạo câu trả lời và model chấm đã đổi.
+## Bonus experiments
 
-## Worst performers — Hai câu trả lời yếu nhất
-
-Hai câu khó nhất là **bốn phẩm chất tuyển sinh** và **quy định nâng cấp học bổng**: cả A/B đều tìm đúng file nguồn nhưng bỏ sót chunk chứa bằng chứng trực tiếp. Cần đọc `source_id` và câu trả lời của từng câu trong `ab_ragas_results.json` khi đánh giá lỗi này.
-
-## Recommendations — Hướng cải thiện
-
-Ưu tiên cải thiện lấy đúng chunk cho hai câu lỗi rồi chạy lại cùng bộ 15 câu. Kiểm tra PageIndex bằng API thật khi có key; với cấu hình hiện tại chỉ kiểm tra được nhánh dự phòng.
-
-Demo ngày 25/09/2026: câu hỏi về hồ sơ bị loại ở vòng sơ tuyển được Gemini trả lời với `[Document 5]`, khớp nguồn hiển thị `news/article_01.md::chunk-2`; câu hỏi về thay pin iPhone nhận câu từ chối an toàn và không hiện nguồn. Toàn bộ **20/20 test** đạt. Lượt Gemini phía trên là baseline của commit `ee0708c`; lượt OpenRouter chạy sau các sửa lỗi demo, với retrieval A/B giữ nguyên.
+| Experiment | Baseline | Metric delta | Latency/cost delta | Conclusion |
+| ---------- | -------- | -----------: | -----------------: | ---------- |
+| Chưa thực hiện bonus experiment | A/B ở trên | Chưa đo | Chưa đo | Không đưa ra kết luận về bonus. |
