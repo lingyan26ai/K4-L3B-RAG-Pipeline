@@ -1,0 +1,602 @@
+{
+  "status": "complete",
+  "run_at_utc": "2026-09-25T16:21:52.685337+00:00",
+  "provider": "openrouter",
+  "ragas_version": "0.4.3",
+  "generator_model": "openai/gpt-4o-mini",
+  "judge_model": "openai/gpt-4o-mini",
+  "retrieval_embedding_model": "BAAI/bge-m3",
+  "judge_embedding_model": "openai/text-embedding-3-small",
+  "top_k": 5,
+  "golden_cases": 15,
+  "configurations": {
+    "A": "dense",
+    "B": "dense + BM25L + RRF"
+  },
+  "rows": [
+    {
+      "question": "Which applications may be screened out at VinUni pre-screening?",
+      "reference": "Applications that fail eligibility criteria, including grade level, significantly low GPA or academic records, or incomplete or carelessly written applications.",
+      "configurations": {
+        "A": {
+          "answer": "Applications that may be screened out at VinUni pre-screening include those that do not meet the eligibility criteria, such as significantly low GPA or academic records, incomplete applications, or carelessly written applications (Document 2).",
+          "source_ids": [
+            "news/article_01.md::chunk-1",
+            "news/article_03.md::chunk-1",
+            "news/article_01.md::chunk-2",
+            "news/article_01.md::chunk-4",
+            "news/article_02.md::chunk-6"
+          ],
+          "scores": {
+            "faithfulness": 1.0,
+            "answer_relevance": 0.9740869237661535,
+            "context_recall": 1.0,
+            "context_precision": 0.99999999995
+          }
+        },
+        "B": {
+          "answer": "Applications that don’t meet the eligibility criteria, such as grade level, significantly low GPA or academic records, and incomplete or carelessly written applications may be screened out at VinUni pre-screening (Document 5).",
+          "source_ids": [
+            "news/article_01.md::chunk-1",
+            "news/article_01.md::chunk-2",
+            "news/article_03.md::chunk-1",
+            "news/article_02.md::chunk-6",
+            "news/article_01.md::chunk-4"
+          ],
+          "scores": {
+            "faithfulness": 1.0,
+            "answer_relevance": 0.8881076832771738,
+            "context_recall": 1.0,
+            "context_precision": 0.699999999965
+          }
+        }
+      }
+    },
+    {
+      "question": "How is VinUni Round 2 individual assessment conducted?",
+      "reference": "Shortlisted applicants are interviewed remotely using interactive tools, including a personal interview or scenario-based challenge.",
+      "configurations": {
+        "A": {
+          "answer": "VinUni Round 2 individual assessment is conducted remotely using interactive tools. It includes a personal interview or scenario-based challenge with faculty, along with other activities that facilitate mutual understanding between the applicants and the university (Document 1).",
+          "source_ids": [
+            "news/article_01.md::chunk-4",
+            "news/article_01.md::chunk-1",
+            "news/article_04.md::chunk-7",
+            "news/article_01.md::chunk-5",
+            "news/article_05.md::chunk-7"
+          ],
+          "scores": {
+            "faithfulness": 1.0,
+            "answer_relevance": 0.986968283398916,
+            "context_recall": 1.0,
+            "context_precision": 0.9999999999
+          }
+        },
+        "B": {
+          "answer": "VinUni Round 2 individual assessment is conducted remotely using interactive tools. This includes a personal interview or scenario-based challenge with faculty, along with some other activities that help both the applicants and the university get to know each other better (Document 1).",
+          "source_ids": [
+            "news/article_01.md::chunk-4",
+            "news/article_04.md::chunk-7",
+            "news/article_01.md::chunk-3",
+            "news/article_04.md::chunk-9",
+            "news/article_01.md::chunk-1"
+          ],
+          "scores": {
+            "faithfulness": 1.0,
+            "answer_relevance": 0.9869666719143213,
+            "context_recall": 1.0,
+            "context_precision": 0.9999999999
+          }
+        }
+      }
+    },
+    {
+      "question": "Must admitted applicants submit a separate merit-based scholarship application?",
+      "reference": "No. All admitted candidates are automatically considered for merit-based scholarships.",
+      "configurations": {
+        "A": {
+          "answer": "No, admitted applicants do not need to submit a separate merit-based scholarship application, as all admitted candidates will automatically be considered for merit-based scholarships (Document 1).",
+          "source_ids": [
+            "news/article_01.md::chunk-6",
+            "legal/GDL-SAM-004-V2.1_Scholarship-Financial-Aid_2025.md::chunk-7",
+            "legal/GDL-SAM-004-V2.1_Scholarship-Financial-Aid_2025.md::chunk-9",
+            "news/article_05.md::chunk-11",
+            "legal/GDL-SAM-004-V2.1_Scholarship-Financial-Aid_2025.md::chunk-14"
+          ],
+          "scores": {
+            "faithfulness": 1.0,
+            "answer_relevance": 0.9644703130712204,
+            "context_recall": 0.5,
+            "context_precision": 0.9999999999
+          }
+        },
+        "B": {
+          "answer": "No, admitted applicants do not need to submit a separate merit-based scholarship application, as all admitted candidates will automatically be considered for merit-based scholarships (Document 5).",
+          "source_ids": [
+            "legal/GDL-SAM-004-V2.1_Scholarship-Financial-Aid_2025.md::chunk-7",
+            "news/article_01.md::chunk-6",
+            "news/article_05.md::chunk-12",
+            "legal/GDL-SAM-004-V2.1_Scholarship-Financial-Aid_2025.md::chunk-9",
+            "news/article_05.md::chunk-11"
+          ],
+          "scores": {
+            "faithfulness": 1.0,
+            "answer_relevance": 0.9644868847670582,
+            "context_recall": 0.5,
+            "context_precision": 0.19999999998
+          }
+        }
+      }
+    },
+    {
+      "question": "When are transfer applicants considered for credit transfer?",
+      "reference": "Only after they have been admitted to VinUniversity.",
+      "configurations": {
+        "A": {
+          "answer": "Transfer applicants are considered for credit transfer only after being admitted to VinUniversity (Document 1).",
+          "source_ids": [
+            "news/article_02.md::chunk-6",
+            "news/article_02.md::chunk-1",
+            "news/article_02.md::chunk-5",
+            "news/article_04.md::chunk-15",
+            "legal/GDL-SAM-004-V2.1_Scholarship-Financial-Aid_2025.md::chunk-24"
+          ],
+          "scores": {
+            "faithfulness": 0.5,
+            "answer_relevance": 0.8190295636989754,
+            "context_recall": 1.0,
+            "context_precision": 0.9999999999
+          }
+        },
+        "B": {
+          "answer": "Transfer applicants are considered for credit transfer only after being admitted to VinUniversity (Document 1).",
+          "source_ids": [
+            "news/article_02.md::chunk-6",
+            "news/article_02.md::chunk-1",
+            "news/article_04.md::chunk-15",
+            "news/article_02.md::chunk-5",
+            "news/article_02.md::chunk-0"
+          ],
+          "scores": {
+            "faithfulness": 1.0,
+            "answer_relevance": 0.8190386912713489,
+            "context_recall": 1.0,
+            "context_precision": 0.9999999999
+          }
+        }
+      }
+    },
+    {
+      "question": "What minimum Vietnamese level is stated for MD transfer applicants?",
+      "reference": "Level A2.",
+      "configurations": {
+        "A": {
+          "answer": "The minimum required proficiency in Vietnamese for MD program applicants is level A2 (Document 1).",
+          "source_ids": [
+            "news/article_02.md::chunk-7",
+            "news/article_04.md::chunk-4",
+            "legal/GDL-ADM-002-V4.1_ENGLISH-LANGUAGE-REQUIREMENTS-FOR-UNDERGRADUATE-ADMISSIONS_4.5.2026.md::chunk-13",
+            "legal/GDL-ADM-002-V4.1_ENGLISH-LANGUAGE-REQUIREMENTS-FOR-UNDERGRADUATE-ADMISSIONS_4.5.2026.md::chunk-31",
+            "legal/GDL-ADM-002-V4.1_ENGLISH-LANGUAGE-REQUIREMENTS-FOR-UNDERGRADUATE-ADMISSIONS_4.5.2026.md::chunk-30"
+          ],
+          "scores": {
+            "faithfulness": 0.5,
+            "answer_relevance": 0.8650189884633518,
+            "context_recall": 1.0,
+            "context_precision": 0.699999999965
+          }
+        },
+        "B": {
+          "answer": "The minimum required proficiency in Vietnamese for MD program applicants is level A2 ([Document 1](https://admissions.vinuni.edu.vn/undergraduate/faqs/english-proficiency-requirements)).",
+          "source_ids": [
+            "news/article_02.md::chunk-7",
+            "news/article_04.md::chunk-4",
+            "news/article_02.md::chunk-1",
+            "legal/GDL-ADM-002-V4.1_ENGLISH-LANGUAGE-REQUIREMENTS-FOR-UNDERGRADUATE-ADMISSIONS_4.5.2026.md::chunk-13",
+            "news/article_05.md::chunk-5"
+          ],
+          "scores": {
+            "faithfulness": 0.5,
+            "answer_relevance": 0.8650189884633518,
+            "context_recall": 1.0,
+            "context_precision": 0.9999999999
+          }
+        }
+      }
+    },
+    {
+      "question": "Which four qualities does the VinUni admission-criteria page suggest applicants portray?",
+      "reference": "Outstanding Ability, Aspiration, Creativity, and Commitment.",
+      "configurations": {
+        "A": {
+          "answer": "The VinUni admission-criteria page suggests applicants portray the following four qualities: Aspiration, Ability, Academic, and Creativity (AACC Standards) (Document 4).",
+          "source_ids": [
+            "news/article_03.md::chunk-1",
+            "news/article_01.md::chunk-1",
+            "news/article_05.md::chunk-7",
+            "news/article_04.md::chunk-2",
+            "news/article_02.md::chunk-9"
+          ],
+          "scores": {
+            "faithfulness": 0.3333333333333333,
+            "answer_relevance": 0.905240910144872,
+            "context_recall": 0.0,
+            "context_precision": 0.4166666666458333
+          }
+        },
+        "B": {
+          "answer": "The VinUni admission-criteria page suggests that applicants portray the following four qualities: excellence, integrity, creativity, and teamwork (Document 1).",
+          "source_ids": [
+            "news/article_03.md::chunk-0",
+            "news/article_03.md::chunk-1",
+            "news/article_01.md::chunk-1",
+            "news/article_05.md::chunk-5",
+            "news/article_05.md::chunk-7"
+          ],
+          "scores": {
+            "faithfulness": 0.0,
+            "answer_relevance": 0.9080287258496774,
+            "context_recall": 0.0,
+            "context_precision": 0.0
+          }
+        }
+      }
+    },
+    {
+      "question": "How many colleges does VinUniversity list?",
+      "reference": "Four colleges.",
+      "configurations": {
+        "A": {
+          "answer": "VinUniversity lists four colleges. (Citation: Document 1)",
+          "source_ids": [
+            "news/article_04.md::chunk-0",
+            "news/article_01.md::chunk-5",
+            "news/article_01.md::chunk-1",
+            "news/article_04.md::chunk-4",
+            "news/article_04.md::chunk-7"
+          ],
+          "scores": {
+            "faithfulness": 1.0,
+            "answer_relevance": 0.9999996311350235,
+            "context_recall": 1.0,
+            "context_precision": 0.9999999999
+          }
+        },
+        "B": {
+          "answer": "VinUniversity lists four colleges. (Document 1)",
+          "source_ids": [
+            "news/article_04.md::chunk-0",
+            "legal/GDL-ADM-002-V4.1_ENGLISH-LANGUAGE-REQUIREMENTS-FOR-UNDERGRADUATE-ADMISSIONS_4.5.2026.md::chunk-26",
+            "news/article_04.md::chunk-4",
+            "legal/GDL-ADM-002-V4.1_ENGLISH-LANGUAGE-REQUIREMENTS-FOR-UNDERGRADUATE-ADMISSIONS_4.5.2026.md::chunk-5",
+            "news/article_04.md::chunk-10"
+          ],
+          "scores": {
+            "faithfulness": 1.0,
+            "answer_relevance": 0.9999237226449367,
+            "context_recall": 1.0,
+            "context_precision": 0.9999999999
+          }
+        }
+      }
+    },
+    {
+      "question": "What are the three admission rounds and their dates on the VinUni FAQ page?",
+      "reference": "Early Round: October 15–January 15; Regular Round: February 15–May 15; Rolling Round: June 15–August 15.",
+      "configurations": {
+        "A": {
+          "answer": "The three admission rounds at VinUni and their dates are as follows:\n1. **Early Round:** October 15 – January 15\n2. **Regular Round:** February 15 – May 15\n3. **Rolling Round:** June 15 – August 15 (Document 1)",
+          "source_ids": [
+            "news/article_04.md::chunk-7",
+            "news/article_01.md::chunk-1",
+            "news/article_04.md::chunk-0",
+            "news/article_01.md::chunk-7",
+            "news/article_03.md::chunk-1"
+          ],
+          "scores": {
+            "faithfulness": 1.0,
+            "answer_relevance": 0.8968122602726208,
+            "context_recall": 1.0,
+            "context_precision": 0.9999999999
+          }
+        },
+        "B": {
+          "answer": "The three admission rounds at VinUni and their dates are as follows: \n\n1. **Early Round:** October 15 – January 15\n2. **Regular Round:** February 15 – May 15\n3. **Rolling Round:** June 15 – August 15 (citation: Document 5).",
+          "source_ids": [
+            "news/article_01.md::chunk-7",
+            "news/article_04.md::chunk-7",
+            "news/article_01.md::chunk-5",
+            "news/article_01.md::chunk-1",
+            "news/article_04.md::chunk-13"
+          ],
+          "scores": {
+            "faithfulness": 1.0,
+            "answer_relevance": 0.8968107067352388,
+            "context_recall": 1.0,
+            "context_precision": 0.19999999998
+          }
+        }
+      }
+    },
+    {
+      "question": "Which high-school science subjects are required for MD eligibility?",
+      "reference": "Biology, Chemistry, and one additional science course: Math or Physics.",
+      "configurations": {
+        "A": {
+          "answer": "Students must complete Biology, Chemistry, and one additional science course (Math or Physics) in high school in order to be eligible for the MD program (Document 1).",
+          "source_ids": [
+            "news/article_04.md::chunk-6",
+            "legal/GDL-ADM-002-V4.1_ENGLISH-LANGUAGE-REQUIREMENTS-FOR-UNDERGRADUATE-ADMISSIONS_4.5.2026.md::chunk-30",
+            "news/article_02.md::chunk-7",
+            "news/article_04.md::chunk-1",
+            "legal/GDL-ADM-002-V4.1_ENGLISH-LANGUAGE-REQUIREMENTS-FOR-UNDERGRADUATE-ADMISSIONS_4.5.2026.md::chunk-32"
+          ],
+          "scores": {
+            "faithfulness": 1.0,
+            "answer_relevance": 0.8407748367217133,
+            "context_recall": 1.0,
+            "context_precision": 0.9999999999
+          }
+        },
+        "B": {
+          "answer": "Students must complete Biology, Chemistry, and one additional science course (Math or Physics) in high school in order to be eligible for the MD program (Document 1).",
+          "source_ids": [
+            "news/article_04.md::chunk-6",
+            "news/article_04.md::chunk-1",
+            "news/article_02.md::chunk-7",
+            "legal/GDL-ADM-002-V4.1_ENGLISH-LANGUAGE-REQUIREMENTS-FOR-UNDERGRADUATE-ADMISSIONS_4.5.2026.md::chunk-30",
+            "news/article_05.md::chunk-5"
+          ],
+          "scores": {
+            "faithfulness": 1.0,
+            "answer_relevance": 0.8407914668350268,
+            "context_recall": 1.0,
+            "context_precision": 0.9999999999
+          }
+        }
+      }
+    },
+    {
+      "question": "What listed annual tuition does the VinUni FAQ give for Nursing?",
+      "reference": "349,650,000 VND per year.",
+      "configurations": {
+        "A": {
+          "answer": "The listed annual tuition for the Nursing program at VinUni is 349,650,000 VND (approximately 15,000 USD) per year (Document 1).",
+          "source_ids": [
+            "news/article_05.md::chunk-2",
+            "news/article_05.md::chunk-3",
+            "legal/VU_TS03.VN_Quy-dinh-tai-chinh-va-Bieu-phi_AY26-27_22.7.2026_Student.md::chunk-23",
+            "news/article_04.md::chunk-0",
+            "news/article_05.md::chunk-14"
+          ],
+          "scores": {
+            "faithfulness": 1.0,
+            "answer_relevance": 0.8927190883720253,
+            "context_recall": 1.0,
+            "context_precision": 0.9999999999
+          }
+        },
+        "B": {
+          "answer": "The listed annual tuition for the Nursing program at VinUni is approximately 349,650,000 VND (approximately 15,000 USD) per year (Document 5).",
+          "source_ids": [
+            "news/article_05.md::chunk-3",
+            "news/article_05.md::chunk-2",
+            "news/article_05.md::chunk-16",
+            "news/article_05.md::chunk-14",
+            "news/article_04.md::chunk-0"
+          ],
+          "scores": {
+            "faithfulness": 1.0,
+            "answer_relevance": 0.892713257619508,
+            "context_recall": 1.0,
+            "context_precision": 0.19999999998
+          }
+        }
+      }
+    },
+    {
+      "question": "How often is tuition paid according to the VinUni FAQ?",
+      "reference": "Twice a year, at the beginning of the Fall and Spring semesters.",
+      "configurations": {
+        "A": {
+          "answer": "Tuition fees are paid twice a year at the beginning of each main semester (Fall Semester and Spring Semester) according to the VinUni FAQ (Document 1).",
+          "source_ids": [
+            "news/article_05.md::chunk-4",
+            "legal/VU_TS03.VN_Quy-dinh-tai-chinh-va-Bieu-phi_AY26-27_22.7.2026_Student.md::chunk-73",
+            "legal/VU_TS03.VN_Quy-dinh-tai-chinh-va-Bieu-phi_AY26-27_22.7.2026_Student.md::chunk-7",
+            "legal/VU_TS03.VN_Quy-dinh-tai-chinh-va-Bieu-phi_AY26-27_22.7.2026_Student.md::chunk-53",
+            "news/article_05.md::chunk-14"
+          ],
+          "scores": {
+            "faithfulness": 0.75,
+            "answer_relevance": 0.9028325772620334,
+            "context_recall": 1.0,
+            "context_precision": 0.99999999995
+          }
+        },
+        "B": {
+          "answer": "Tuition fee payment will be made twice a year at the beginning of each main semester (Fall Semester and Spring Semester) according to the VinUni FAQ (Document 1).",
+          "source_ids": [
+            "news/article_05.md::chunk-4",
+            "news/article_05.md::chunk-14",
+            "news/article_05.md::chunk-3",
+            "legal/VU_TS03.VN_Quy-dinh-tai-chinh-va-Bieu-phi_AY26-27_22.7.2026_Student.md::chunk-73",
+            "news/article_05.md::chunk-1"
+          ],
+          "scores": {
+            "faithfulness": 0.75,
+            "answer_relevance": 0.7397123385129399,
+            "context_recall": 1.0,
+            "context_precision": 0.9999999999
+          }
+        }
+      }
+    },
+    {
+      "question": "What is the May 15 validity rule for recognized English test results?",
+      "reference": "Test results must have been obtained within the two years before May 15 of the admission year; May 15 is the validity cut-off for all admission rounds.",
+      "configurations": {
+        "A": {
+          "answer": "The May 15 validity rule states that for the Academic Year 2026–2027, all English test results must be obtained after May 15, 2024, and will not be accepted if obtained before this date, regardless of the test provider’s stated validity period (Document 1).",
+          "source_ids": [
+            "legal/GDL-ADM-002-V4.1_ENGLISH-LANGUAGE-REQUIREMENTS-FOR-UNDERGRADUATE-ADMISSIONS_4.5.2026.md::chunk-12",
+            "legal/GDL-ADM-002-V4.1_ENGLISH-LANGUAGE-REQUIREMENTS-FOR-UNDERGRADUATE-ADMISSIONS_4.5.2026.md::chunk-11",
+            "legal/GDL-ADM-002-V4.1_ENGLISH-LANGUAGE-REQUIREMENTS-FOR-UNDERGRADUATE-ADMISSIONS_4.5.2026.md::chunk-18",
+            "legal/GDL-ADM-002-V4.1_ENGLISH-LANGUAGE-REQUIREMENTS-FOR-UNDERGRADUATE-ADMISSIONS_4.5.2026.md::chunk-3",
+            "legal/GDL-ADM-002-V4.1_ENGLISH-LANGUAGE-REQUIREMENTS-FOR-UNDERGRADUATE-ADMISSIONS_4.5.2026.md::chunk-13"
+          ],
+          "scores": {
+            "faithfulness": 0.6666666666666666,
+            "answer_relevance": 0.7630759211317498,
+            "context_recall": 1.0,
+            "context_precision": 0.7555555555303703
+          }
+        },
+        "B": {
+          "answer": "The May 15 validity rule states that for all admission rounds in the academic year, test results obtained before May 15 of the relevant year will not be accepted, regardless of the test provider’s stated validity period (Document 1).",
+          "source_ids": [
+            "legal/GDL-ADM-002-V4.1_ENGLISH-LANGUAGE-REQUIREMENTS-FOR-UNDERGRADUATE-ADMISSIONS_4.5.2026.md::chunk-12",
+            "legal/GDL-ADM-002-V4.1_ENGLISH-LANGUAGE-REQUIREMENTS-FOR-UNDERGRADUATE-ADMISSIONS_4.5.2026.md::chunk-11",
+            "legal/GDL-ADM-002-V4.1_ENGLISH-LANGUAGE-REQUIREMENTS-FOR-UNDERGRADUATE-ADMISSIONS_4.5.2026.md::chunk-13",
+            "legal/GDL-ADM-002-V4.1_ENGLISH-LANGUAGE-REQUIREMENTS-FOR-UNDERGRADUATE-ADMISSIONS_4.5.2026.md::chunk-18",
+            "news/article_04.md::chunk-7"
+          ],
+          "scores": {
+            "faithfulness": 0.6666666666666666,
+            "answer_relevance": 0.6478160295547583,
+            "context_recall": 1.0,
+            "context_precision": 0.8666666666377778
+          }
+        }
+      }
+    },
+    {
+      "question": "Can an MD applicant receive conditional admission under English guideline GDL-ADM-002-V4.1?",
+      "reference": "No. MD applicants must fully meet the English entry requirements by August 30.",
+      "configurations": {
+        "A": {
+          "answer": "No, an MD applicant cannot receive conditional admission under the English guideline GDL-ADM-002-V4.1. According to Document 1, \"Conditional admission shall not apply to the Medical Doctor (MD) program\" (source: legal/GDL-ADM-002-V4.1_ENGLISH-LANGUAGE-REQUIREMENTS-FOR-UNDERGRADUATE-ADMISSIONS_4.5.2026.md).",
+          "source_ids": [
+            "legal/GDL-ADM-002-V4.1_ENGLISH-LANGUAGE-REQUIREMENTS-FOR-UNDERGRADUATE-ADMISSIONS_4.5.2026.md::chunk-30",
+            "legal/GDL-ADM-002-V4.1_ENGLISH-LANGUAGE-REQUIREMENTS-FOR-UNDERGRADUATE-ADMISSIONS_4.5.2026.md::chunk-7",
+            "legal/GDL-ADM-002-V4.1_ENGLISH-LANGUAGE-REQUIREMENTS-FOR-UNDERGRADUATE-ADMISSIONS_4.5.2026.md::chunk-28",
+            "legal/GDL-SAM-004-V2.1_Scholarship-Financial-Aid_2025.md::chunk-1",
+            "legal/GDL-ADM-002-V4.1_ENGLISH-LANGUAGE-REQUIREMENTS-FOR-UNDERGRADUATE-ADMISSIONS_4.5.2026.md::chunk-0"
+          ],
+          "scores": {
+            "faithfulness": 1.0,
+            "answer_relevance": 0.9954260745845321,
+            "context_recall": 1.0,
+            "context_precision": 0.99999999995
+          }
+        },
+        "B": {
+          "answer": "No, an MD applicant cannot receive conditional admission under English guideline GDL-ADM-002-V4.1. The guideline states that \"Conditional admission shall not apply to the Medical Doctor (MD) program,\" and applicants must fully meet the English language entry requirements by 30 August to be admitted (Document 1).",
+          "source_ids": [
+            "legal/GDL-ADM-002-V4.1_ENGLISH-LANGUAGE-REQUIREMENTS-FOR-UNDERGRADUATE-ADMISSIONS_4.5.2026.md::chunk-30",
+            "legal/GDL-ADM-002-V4.1_ENGLISH-LANGUAGE-REQUIREMENTS-FOR-UNDERGRADUATE-ADMISSIONS_4.5.2026.md::chunk-0",
+            "news/article_02.md::chunk-7",
+            "legal/GDL-ADM-002-V4.1_ENGLISH-LANGUAGE-REQUIREMENTS-FOR-UNDERGRADUATE-ADMISSIONS_4.5.2026.md::chunk-19",
+            "legal/GDL-ADM-002-V4.1_ENGLISH-LANGUAGE-REQUIREMENTS-FOR-UNDERGRADUATE-ADMISSIONS_4.5.2026.md::chunk-7"
+          ],
+          "scores": {
+            "faithfulness": 0.6666666666666666,
+            "answer_relevance": 0.9999996671276605,
+            "context_recall": 1.0,
+            "context_precision": 0.9999999999
+          }
+        }
+      }
+    },
+    {
+      "question": "Can an entry merit-based scholarship be upgraded to a higher scholarship level under GDL-SAM-004-V2.1?",
+      "reference": "No. Entry merit-based scholarships cover the entire period of study but are not eligible for scholarship-level upgrades.",
+      "configurations": {
+        "A": {
+          "answer": "No, entry scholarships awarded to students upon enrollment will not be considered for upgrade. They will be maintained at the same level for the entire duration of their studies (Document 4).",
+          "source_ids": [
+            "legal/GDL-SAM-004-V2.1_Scholarship-Financial-Aid_2025.md::chunk-1",
+            "legal/GDL-SAM-004-V2.1_Scholarship-Financial-Aid_2025.md::chunk-14",
+            "legal/GDL-SAM-004-V2.1_Scholarship-Financial-Aid_2025.md::chunk-0",
+            "news/article_05.md::chunk-11",
+            "legal/GDL-SAM-004-V2.1_Scholarship-Financial-Aid_2025.md::chunk-9"
+          ],
+          "scores": {
+            "faithfulness": 0.75,
+            "answer_relevance": 0.7365349833241527,
+            "context_recall": 1.0,
+            "context_precision": 0.249999999975
+          }
+        },
+        "B": {
+          "answer": "No, entry scholarships awarded to students upon enrollment will not be considered for upgrade. They will apply for the entire duration of their studies at the same level (Document 4).",
+          "source_ids": [
+            "legal/GDL-SAM-004-V2.1_Scholarship-Financial-Aid_2025.md::chunk-0",
+            "legal/GDL-SAM-004-V2.1_Scholarship-Financial-Aid_2025.md::chunk-1",
+            "legal/GDL-SAM-004-V2.1_Scholarship-Financial-Aid_2025.md::chunk-7",
+            "news/article_05.md::chunk-11",
+            "news/article_01.md::chunk-6"
+          ],
+          "scores": {
+            "faithfulness": 0.5,
+            "answer_relevance": 0.7365349119890382,
+            "context_recall": 1.0,
+            "context_precision": 0.499999999975
+          }
+        }
+      }
+    },
+    {
+      "question": "Theo biểu phí AY 2026–2027, học phí niêm yết mỗi năm của các chương trình cử nhân khác là bao nhiêu?",
+      "reference": "815.850.000 đồng/năm.",
+      "configurations": {
+        "A": {
+          "answer": "Học phí niêm yết mỗi năm của các chương trình cử nhân khác là 815.850.000 VND/năm (Document 1).",
+          "source_ids": [
+            "legal/VU_TS03.VN_Quy-dinh-tai-chinh-va-Bieu-phi_AY26-27_22.7.2026_Student.md::chunk-3",
+            "legal/VU_TS03.VN_Quy-dinh-tai-chinh-va-Bieu-phi_AY26-27_22.7.2026_Student.md::chunk-48",
+            "legal/VU_TS03.VN_Quy-dinh-tai-chinh-va-Bieu-phi_AY26-27_22.7.2026_Student.md::chunk-2",
+            "news/article_05.md::chunk-3",
+            "legal/VU_TS03.VN_Quy-dinh-tai-chinh-va-Bieu-phi_AY26-27_22.7.2026_Student.md::chunk-0"
+          ],
+          "scores": {
+            "faithfulness": 1.0,
+            "answer_relevance": 0.3955048791644391,
+            "context_recall": 1.0,
+            "context_precision": 0.9999999999
+          }
+        },
+        "B": {
+          "answer": "Học phí niêm yết mỗi năm của các chương trình cử nhân khác là 815.850.000 VND/năm (Document 1).",
+          "source_ids": [
+            "legal/VU_TS03.VN_Quy-dinh-tai-chinh-va-Bieu-phi_AY26-27_22.7.2026_Student.md::chunk-3",
+            "legal/VU_TS03.VN_Quy-dinh-tai-chinh-va-Bieu-phi_AY26-27_22.7.2026_Student.md::chunk-2",
+            "legal/VU_TS03.VN_Quy-dinh-tai-chinh-va-Bieu-phi_AY26-27_22.7.2026_Student.md::chunk-48",
+            "legal/VU_TS03.VN_Quy-dinh-tai-chinh-va-Bieu-phi_AY26-27_22.7.2026_Student.md::chunk-51",
+            "legal/VU_TS03.VN_Quy-dinh-tai-chinh-va-Bieu-phi_AY26-27_22.7.2026_Student.md::chunk-49"
+          ],
+          "scores": {
+            "faithfulness": 0.5,
+            "answer_relevance": 0.39932278836783874,
+            "context_recall": 1.0,
+            "context_precision": 0.9999999999
+          }
+        }
+      }
+    }
+  ],
+  "summary": {
+    "A": {
+      "faithfulness": 0.8333,
+      "answer_relevance": 0.8626,
+      "context_recall": 0.9,
+      "context_precision": 0.8748
+    },
+    "B": {
+      "faithfulness": 0.7722,
+      "answer_relevance": 0.839,
+      "context_recall": 0.9,
+      "context_precision": 0.7111
+    }
+  }
+}

@@ -1,6 +1,6 @@
 # Báo cáo nhóm — RAG tuyển sinh VinUni
 
-**Ngày:** 25/09/2026 · **Commit:** `ee0708c`
+**Ngày:** 25/09/2026 · **Bản đo Gemini:** `ee0708c` · **Bản đo OpenRouter:** `dc37986`
 
 ## Dữ liệu và pipeline
 
@@ -29,7 +29,21 @@ Chỉ số trên đo **file nguồn**, chưa khẳng định chunk chứa đúng
 | Context precision | 0,813 | 0,650 | −0,163 |
 | **Trung bình 4 chỉ số** | **0,857** | **0,793** | **−0,064** |
 
-Dense cao hơn ở faithfulness và context precision, bằng ở context recall; hybrid nhỉnh hơn nhẹ ở answer relevance. Hai câu khó nhất là **bốn phẩm chất tuyển sinh** và **quy định nâng cấp học bổng**: cả A/B đều bỏ sót chunk chứa bằng chứng trực tiếp từ nguồn được hỏi, nên model trả lời sai hoặc từ chối. Điểm do LLM chấm cần đọc cùng câu trả lời gốc; chưa đo chi phí/độ trễ API.
+Dense cao hơn ở faithfulness và context precision, bằng ở context recall; hybrid nhỉnh hơn nhẹ ở answer relevance. Hai câu khó nhất là **bốn phẩm chất tuyển sinh** và **quy định nâng cấp học bổng**: cả A/B đều bỏ sót chunk chứa bằng chứng trực tiếp từ nguồn được hỏi, nên model trả lời sai hoặc từ chối. Điểm do LLM chấm cần đọc cùng câu trả lời gốc; chưa đo chi phí/độ trễ API. Đây là lượt Gemini hoàn tất trước đó; file đo lại `reports/ab_ragas_rerun.json` mới có 2/15 câu do Gemini bị giới hạn lượt gọi, nên không dùng để kết luận.
+
+## Đo lại bằng OpenRouter — 15 câu
+
+Ngày 25/09/2026, chạy lại cùng 15 câu và `top_k=5` với `openai/gpt-4o-mini` qua OpenRouter cho cả tạo câu trả lời và chấm Ragas; answer relevance dùng `openai/text-embedding-3-small`. File kết quả đầy đủ: `reports/openrouter_full.json` (`status=complete`, 15/15 câu, đủ bốn điểm cho A/B).
+
+| Chỉ số Ragas | A: dense | B: hybrid |
+|---|---:|---:|
+| Faithfulness | 0,833 | 0,772 |
+| Answer relevance | 0,863 | 0,839 |
+| Context recall | 0,900 | 0,900 |
+| Context precision | 0,875 | 0,711 |
+| **Trung bình 4 chỉ số** | **0,868** | **0,806** |
+
+Ở lượt này, dense cao hơn hybrid trên ba chỉ số và bằng ở context recall. Câu về **bốn phẩm chất tuyển sinh** vẫn yếu nhất: cả hai cấu hình có context recall bằng 0; câu trả lời B nêu sai bốn phẩm chất. Không so sánh trực tiếp mức điểm tuyệt đối giữa lượt Gemini và OpenRouter vì model tạo câu trả lời và model chấm đã đổi.
 
 ## Worst performers — Hai câu trả lời yếu nhất
 
@@ -39,4 +53,4 @@ Hai câu khó nhất là **bốn phẩm chất tuyển sinh** và **quy định 
 
 Ưu tiên cải thiện lấy đúng chunk cho hai câu lỗi rồi chạy lại cùng bộ 15 câu. Kiểm tra PageIndex bằng API thật khi có key; với cấu hình hiện tại chỉ kiểm tra được nhánh dự phòng.
 
-Demo ngày 25/09/2026: câu hỏi về hồ sơ bị loại ở vòng sơ tuyển được Gemini trả lời với `[Document 5]`, khớp nguồn hiển thị `news/article_01.md::chunk-2`; câu hỏi về thay pin iPhone nhận câu từ chối an toàn và không hiện nguồn. Toàn bộ **20/20 test** đạt. Các sửa lỗi cache model, thứ tự nguồn citation và từ chối khi điểm dense dưới ngưỡng được thực hiện **sau** benchmark A/B ở trên; các số Ragas là baseline của commit `ee0708c`, chưa đo lại trên phiên bản đã sửa.
+Demo ngày 25/09/2026: câu hỏi về hồ sơ bị loại ở vòng sơ tuyển được Gemini trả lời với `[Document 5]`, khớp nguồn hiển thị `news/article_01.md::chunk-2`; câu hỏi về thay pin iPhone nhận câu từ chối an toàn và không hiện nguồn. Toàn bộ **20/20 test** đạt. Lượt Gemini phía trên là baseline của commit `ee0708c`; lượt OpenRouter chạy sau các sửa lỗi demo, với retrieval A/B giữ nguyên.
