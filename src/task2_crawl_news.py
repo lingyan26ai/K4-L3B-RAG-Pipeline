@@ -15,31 +15,46 @@ Cài browser trước khi chạy:
 
 import asyncio
 import json
+import os
+from datetime import datetime, timezone
 from pathlib import Path
+
+os.environ.setdefault(
+    "CRAWL4_AI_BASE_DIRECTORY",
+    str(Path(__file__).parent.parent / ".cache"),
+)
+
+from crawl4ai import AsyncWebCrawler
 
 
 DATA_DIR = Path(__file__).parent.parent / "data" / "landing" / "news"
 
 ARTICLE_URLS = [
-    # TODO: Thêm ít nhất 5 public URL.
+    "https://admissions.vinuni.edu.vn/undergraduate/apply-to-vinuni/first-year-applicants/application-process/",
+    "https://admissions.vinuni.edu.vn/undergraduate/apply-to-vinuni/transfer-students/",
+    "https://admissions.vinuni.edu.vn/undergraduate/apply-to-vinuni/first-year-applicants/admission-criteria/",
+    "https://admissions.vinuni.edu.vn/undergraduate/faqs/general-admissions/",
+    "https://admissions.vinuni.edu.vn/undergraduate/faqs/tuition-fee-scholarship-and-financial-aids/",
 ]
 
 
 async def crawl_article(url: str) -> dict:
-    # TODO: Implement crawling logic.
-    #
-    # from datetime import datetime
-    # from crawl4ai import AsyncWebCrawler
-    #
-    # async with AsyncWebCrawler() as crawler:
-    #     result = await crawler.arun(url=url)
-    #     return {
-    #         "url": url,
-    #         "title": result.metadata.get("title", "Unknown"),
-    #         "date_crawled": datetime.now().isoformat(),
-    #         "content_markdown": result.markdown,
-    #     }
-    raise NotImplementedError("Implement crawl_article")
+    async with AsyncWebCrawler() as crawler:
+        result = await crawler.arun(url=url)
+        if not result.success or not result.markdown:
+            raise ValueError(f"Crawl returned no usable content: {url}")
+        content = str(result.markdown).strip()
+        if len(content) < 200:
+            raise ValueError(f"Crawl content is too short: {url}")
+        title = (result.metadata or {}).get("title", "").strip()
+        if not title:
+            raise ValueError(f"Crawl returned no title: {url}")
+        return {
+            "url": url,
+            "title": title,
+            "date_crawled": datetime.now(timezone.utc).isoformat(),
+            "content_markdown": content,
+        }
 
 
 async def crawl_all() -> None:
