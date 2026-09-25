@@ -7,7 +7,7 @@ from src.task10_generation import generate_with_citation
 load_dotenv()
 
 st.set_page_config(
-    page_title="RAG Chatbot",
+    page_title="Hỏi đáp tuyển sinh VinUni",
     page_icon="",
     layout="wide",
 )
@@ -16,12 +16,12 @@ if "messages" not in st.session_state:
     st.session_state.messages = []
 
 with st.sidebar:
-    st.title("RAG Chatbot")
-    st.caption("Thay mô tả theo đề tài của nhóm")
-    top_k = st.slider("Số chunks", 3, 10, 5)
+    st.title("Hỏi đáp VinUni")
+    st.caption("Tra cứu tài liệu tuyển sinh và chính sách đã thu thập.")
+    top_k = st.slider("Số đoạn tài liệu tham khảo", 3, 10, 5)
 
-st.title("RAG Chatbot")
-st.caption("Thay tiêu đề và hướng dẫn sử dụng")
+st.title("Hỏi đáp tuyển sinh VinUni")
+st.caption("Đặt câu hỏi về tuyển sinh hoặc học bổng. Kiểm tra nguồn bên dưới mỗi câu trả lời trước khi sử dụng thông tin.")
 
 for message in st.session_state.messages:
     with st.chat_message(message["role"]):
@@ -38,7 +38,7 @@ for message in st.session_state.messages:
                     st.caption(f"Phương thức: `{method}` | Điểm: `{score:.4f}`")
                     st.text(src.get("content", ""))
 
-query = st.chat_input("Nhập câu hỏi...")
+query = st.chat_input("Ví dụ: VinUni có các loại học bổng nào?")
 
 if query:
     st.session_state.messages.append({"role": "user", "content": query})

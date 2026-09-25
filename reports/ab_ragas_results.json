@@ -1,0 +1,602 @@
+{
+  "status": "complete",
+  "run_at_utc": "2026-09-25T13:23:45.901730+00:00",
+  "provider": "gemini",
+  "ragas_version": "0.4.3",
+  "generator_model": "gemini-3.5-flash-lite",
+  "judge_model": "gemini-3.5-flash-lite",
+  "retrieval_embedding_model": "BAAI/bge-m3",
+  "judge_embedding_model": "gemini-embedding-001",
+  "top_k": 5,
+  "golden_cases": 15,
+  "configurations": {
+    "A": "dense",
+    "B": "dense + BM25L + RRF"
+  },
+  "rows": [
+    {
+      "question": "Which applications may be screened out at VinUni pre-screening?",
+      "reference": "Applications that fail eligibility criteria, including grade level, significantly low GPA or academic records, or incomplete or carelessly written applications.",
+      "configurations": {
+        "A": {
+          "answer": "Dựa trên Document 2, những hồ sơ có thể bị loại ở vòng sơ lọc (pre-screening) của VinUni bao gồm:\n* Những hồ sơ không đáp ứng các tiêu chí đủ điều kiện (như cấp học, điểm GPA hoặc học lực thấp đáng kể) [Document 2].\n* Hồ sơ chưa đầy đủ hoặc được viết một cách cẩu thả [Document 2].",
+          "source_ids": [
+            "news/article_01.md::chunk-1",
+            "news/article_03.md::chunk-1",
+            "news/article_01.md::chunk-2",
+            "news/article_01.md::chunk-4",
+            "news/article_02.md::chunk-6"
+          ],
+          "scores": {
+            "faithfulness": 1.0,
+            "answer_relevance": 0.9013778920886053,
+            "context_recall": 1.0,
+            "context_precision": 0.49999999995
+          }
+        },
+        "B": {
+          "answer": "Dựa trên các tài liệu được cung cấp, những hồ sơ có thể bị loại (screened out) ở vòng sơ loại (pre-screening) của VinUni bao gồm:\n* Những hồ sơ không đáp ứng các tiêu chí đủ điều kiện (eligibility criteria) [Document 5].\n* Các tiêu chí cụ thể như: cấp lớp (grade level), điểm trung bình (GPA) hoặc học lực quá thấp, hồ sơ chưa hoàn chỉnh hoặc được viết một cách cẩu thả [Document 5].",
+          "source_ids": [
+            "news/article_01.md::chunk-1",
+            "news/article_01.md::chunk-2",
+            "news/article_03.md::chunk-1",
+            "news/article_02.md::chunk-6",
+            "news/article_01.md::chunk-4"
+          ],
+          "scores": {
+            "faithfulness": 1.0,
+            "answer_relevance": 0.8998202183698908,
+            "context_recall": 1.0,
+            "context_precision": 0.19999999998
+          }
+        }
+      }
+    },
+    {
+      "question": "How is VinUni Round 2 individual assessment conducted?",
+      "reference": "Shortlisted applicants are interviewed remotely using interactive tools, including a personal interview or scenario-based challenge.",
+      "configurations": {
+        "A": {
+          "answer": "Dựa trên context được cung cấp, vòng phỏng vấn đánh giá cá nhân (Interview Round 2) của VinUni được thực hiện từ xa bằng cách sử dụng các công cụ tương tác [Document 1]. Quá trình này bao gồm một buổi phỏng vấn cá nhân/thử thách dựa trên kịch bản với giảng viên và một số hoạt động khác [Document 1].\n\n**Citation:** [Document 1]",
+          "source_ids": [
+            "news/article_01.md::chunk-4",
+            "news/article_01.md::chunk-1",
+            "news/article_04.md::chunk-7",
+            "news/article_01.md::chunk-5",
+            "news/article_05.md::chunk-7"
+          ],
+          "scores": {
+            "faithfulness": 1.0,
+            "answer_relevance": 0.911026344147456,
+            "context_recall": 1.0,
+            "context_precision": 0.9999999999
+          }
+        },
+        "B": {
+          "answer": "Dựa trên context được cung cấp, vòng đánh giá cá nhân (Individual Assessment) ở Vòng 2 của VinUni được thực hiện từ xa bằng các công cụ tương tác [Document 1]. Quá trình này bao gồm một buổi phỏng vấn cá nhân/thử thách dựa trên tình huống với giảng viên và một số hoạt động khác [Document 1].",
+          "source_ids": [
+            "news/article_01.md::chunk-4",
+            "news/article_04.md::chunk-7",
+            "news/article_01.md::chunk-3",
+            "news/article_04.md::chunk-9",
+            "news/article_01.md::chunk-1"
+          ],
+          "scores": {
+            "faithfulness": 1.0,
+            "answer_relevance": 0.9171653794661093,
+            "context_recall": 1.0,
+            "context_precision": 0.9999999999
+          }
+        }
+      }
+    },
+    {
+      "question": "Must admitted applicants submit a separate merit-based scholarship application?",
+      "reference": "No. All admitted candidates are automatically considered for merit-based scholarships.",
+      "configurations": {
+        "A": {
+          "answer": "Không, các ứng viên trúng tuyển không cần phải nộp đơn xin học bổng dựa trên thành tích (merit-based scholarship) riêng biệt, vì tất cả các ứng viên trúng tuyển sẽ tự động được xem xét cấp học bổng loại này [Document 1].",
+          "source_ids": [
+            "news/article_01.md::chunk-6",
+            "legal/GDL-SAM-004-V2.1_Scholarship-Financial-Aid_2025.md::chunk-7",
+            "legal/GDL-SAM-004-V2.1_Scholarship-Financial-Aid_2025.md::chunk-9",
+            "news/article_05.md::chunk-11",
+            "legal/GDL-SAM-004-V2.1_Scholarship-Financial-Aid_2025.md::chunk-14"
+          ],
+          "scores": {
+            "faithfulness": 1.0,
+            "answer_relevance": 0.7809290370332179,
+            "context_recall": 1.0,
+            "context_precision": 0.9999999999
+          }
+        },
+        "B": {
+          "answer": "Không, các ứng viên trúng tuyển không cần phải nộp hồ sơ xin học bổng dựa trên thành tích (merit-based scholarship) riêng biệt, vì tất cả các ứng viên trúng tuyển sẽ tự động được xem xét cấp học bổng này [Document 5].",
+          "source_ids": [
+            "legal/GDL-SAM-004-V2.1_Scholarship-Financial-Aid_2025.md::chunk-7",
+            "news/article_01.md::chunk-6",
+            "news/article_05.md::chunk-12",
+            "legal/GDL-SAM-004-V2.1_Scholarship-Financial-Aid_2025.md::chunk-9",
+            "news/article_05.md::chunk-11"
+          ],
+          "scores": {
+            "faithfulness": 1.0,
+            "answer_relevance": 0.7751821131727685,
+            "context_recall": 1.0,
+            "context_precision": 0.19999999998
+          }
+        }
+      }
+    },
+    {
+      "question": "When are transfer applicants considered for credit transfer?",
+      "reference": "Only after they have been admitted to VinUniversity.",
+      "configurations": {
+        "A": {
+          "answer": "Applicants will be considered for credit transfer only after being admitted to VinUniversity [Document 1].",
+          "source_ids": [
+            "news/article_02.md::chunk-6",
+            "news/article_02.md::chunk-1",
+            "news/article_02.md::chunk-5",
+            "news/article_04.md::chunk-15",
+            "legal/GDL-SAM-004-V2.1_Scholarship-Financial-Aid_2025.md::chunk-24"
+          ],
+          "scores": {
+            "faithfulness": 1.0,
+            "answer_relevance": 0.8254563321380829,
+            "context_recall": 1.0,
+            "context_precision": 0.9999999999
+          }
+        },
+        "B": {
+          "answer": "Dựa trên ngữ cảnh được cung cấp, ứng viên chuyển trường sẽ được xem xét chuyển tín chỉ chỉ sau khi đã trúng tuyển vào VinUniversity [Document 1].",
+          "source_ids": [
+            "news/article_02.md::chunk-6",
+            "news/article_02.md::chunk-1",
+            "news/article_04.md::chunk-15",
+            "news/article_02.md::chunk-5",
+            "news/article_02.md::chunk-0"
+          ],
+          "scores": {
+            "faithfulness": 1.0,
+            "answer_relevance": 0.8433588758901349,
+            "context_recall": 1.0,
+            "context_precision": 0.9999999999
+          }
+        }
+      }
+    },
+    {
+      "question": "What minimum Vietnamese level is stated for MD transfer applicants?",
+      "reference": "Level A2.",
+      "configurations": {
+        "A": {
+          "answer": "Mức độ thành thạo tiếng Việt tối thiểu được yêu cầu đối với các ứng viên nộp đơn vào chương trình Bác sĩ Y khoa (MD) là trình độ A2 [Document 1].",
+          "source_ids": [
+            "news/article_02.md::chunk-7",
+            "news/article_04.md::chunk-4",
+            "legal/GDL-ADM-002-V4.1_ENGLISH-LANGUAGE-REQUIREMENTS-FOR-UNDERGRADUATE-ADMISSIONS_4.5.2026.md::chunk-13",
+            "legal/GDL-ADM-002-V4.1_ENGLISH-LANGUAGE-REQUIREMENTS-FOR-UNDERGRADUATE-ADMISSIONS_4.5.2026.md::chunk-31",
+            "legal/GDL-ADM-002-V4.1_ENGLISH-LANGUAGE-REQUIREMENTS-FOR-UNDERGRADUATE-ADMISSIONS_4.5.2026.md::chunk-30"
+          ],
+          "scores": {
+            "faithfulness": 1.0,
+            "answer_relevance": 0.8727701566499282,
+            "context_recall": 1.0,
+            "context_precision": 0.9999999999
+          }
+        },
+        "B": {
+          "answer": "Dựa trên tài liệu được cung cấp, mức độ thông thạo tiếng Việt tối thiểu được yêu cầu đối với các ứng viên nộp đơn vào chương trình Bác sĩ Y khoa (MD) là cấp độ A2 [Document 1].",
+          "source_ids": [
+            "news/article_02.md::chunk-7",
+            "news/article_04.md::chunk-4",
+            "news/article_02.md::chunk-1",
+            "legal/GDL-ADM-002-V4.1_ENGLISH-LANGUAGE-REQUIREMENTS-FOR-UNDERGRADUATE-ADMISSIONS_4.5.2026.md::chunk-13",
+            "news/article_05.md::chunk-5"
+          ],
+          "scores": {
+            "faithfulness": 0.0,
+            "answer_relevance": 0.87128073629232,
+            "context_recall": 1.0,
+            "context_precision": 0.9999999999
+          }
+        }
+      }
+    },
+    {
+      "question": "Which four qualities does the VinUni admission-criteria page suggest applicants portray?",
+      "reference": "Outstanding Ability, Aspiration, Creativity, and Commitment.",
+      "configurations": {
+        "A": {
+          "answer": "Dựa trên context được cung cấp, trang tiêu chuẩn tuyển sinh của VinUni đề cập đến các tiêu chuẩn AACC bao gồm: Aspiration (Khát vọng), Ability (Năng lực), Academic (Học thuật), và Creativity (Sáng tạo) [Document 4].",
+          "source_ids": [
+            "news/article_03.md::chunk-1",
+            "news/article_01.md::chunk-1",
+            "news/article_05.md::chunk-7",
+            "news/article_04.md::chunk-2",
+            "news/article_02.md::chunk-9"
+          ],
+          "scores": {
+            "faithfulness": 1.0,
+            "answer_relevance": 0.7225946460638748,
+            "context_recall": 0.0,
+            "context_precision": 0.0
+          }
+        },
+        "B": {
+          "answer": "Dựa trên các context được cung cấp, không có thông tin nào nêu rõ \"four qualities\" (bốn phẩm chất) mà trang tiêu chuẩn tuyển sinh của VinUni gợi ý các ứng viên thể hiện. Do đó, tôi từ chối xác minh yêu cầu này vì thiếu bằng chứng.",
+          "source_ids": [
+            "news/article_03.md::chunk-0",
+            "news/article_03.md::chunk-1",
+            "news/article_01.md::chunk-1",
+            "news/article_05.md::chunk-5",
+            "news/article_05.md::chunk-7"
+          ],
+          "scores": {
+            "faithfulness": 1.0,
+            "answer_relevance": 0.0,
+            "context_recall": 0.0,
+            "context_precision": 0.0
+          }
+        }
+      }
+    },
+    {
+      "question": "How many colleges does VinUniversity list?",
+      "reference": "Four colleges.",
+      "configurations": {
+        "A": {
+          "answer": "Dựa trên context được cung cấp, VinUniversity có bốn Viện (Colleges) [Document 1].",
+          "source_ids": [
+            "news/article_04.md::chunk-0",
+            "news/article_01.md::chunk-5",
+            "news/article_01.md::chunk-1",
+            "news/article_04.md::chunk-4",
+            "news/article_04.md::chunk-7"
+          ],
+          "scores": {
+            "faithfulness": 1.0,
+            "answer_relevance": 0.8776521699565495,
+            "context_recall": 1.0,
+            "context_precision": 0.9999999999
+          }
+        },
+        "B": {
+          "answer": "Dựa trên context được cung cấp, VinUniversity có bốn Viện (Colleges) [Document 1].",
+          "source_ids": [
+            "news/article_04.md::chunk-0",
+            "legal/GDL-ADM-002-V4.1_ENGLISH-LANGUAGE-REQUIREMENTS-FOR-UNDERGRADUATE-ADMISSIONS_4.5.2026.md::chunk-26",
+            "news/article_04.md::chunk-4",
+            "legal/GDL-ADM-002-V4.1_ENGLISH-LANGUAGE-REQUIREMENTS-FOR-UNDERGRADUATE-ADMISSIONS_4.5.2026.md::chunk-5",
+            "news/article_04.md::chunk-10"
+          ],
+          "scores": {
+            "faithfulness": 1.0,
+            "answer_relevance": 0.8561191453925496,
+            "context_recall": 1.0,
+            "context_precision": 0.9999999999
+          }
+        }
+      }
+    },
+    {
+      "question": "What are the three admission rounds and their dates on the VinUni FAQ page?",
+      "reference": "Early Round: October 15–January 15; Regular Round: February 15–May 15; Rolling Round: June 15–August 15.",
+      "configurations": {
+        "A": {
+          "answer": "Ba vòng tuyển sinh và thời gian của chúng tại VinUni là:\n* **Early Round:** 15 tháng 10 – 15 tháng 1 [Document 1]\n* **Regular Round:** 15 tháng 2 – 15 tháng 5 [Document 1]\n* **Rolling Round:** 15 tháng 6 – 15 tháng 8 [Document 1]",
+          "source_ids": [
+            "news/article_04.md::chunk-7",
+            "news/article_01.md::chunk-1",
+            "news/article_04.md::chunk-0",
+            "news/article_01.md::chunk-7",
+            "news/article_03.md::chunk-1"
+          ],
+          "scores": {
+            "faithfulness": 0.6666666666666666,
+            "answer_relevance": 0.8676935263919079,
+            "context_recall": 1.0,
+            "context_precision": 0.9999999999
+          }
+        },
+        "B": {
+          "answer": "Ba vòng tuyển sinh và thời gian của chúng tại VinUni bao gồm:\n* **Early Round:** 15 tháng 10 – 15 tháng 1 [Document 5].\n* **Regular Round:** 15 tháng 2 – 15 tháng 5 [Document 5].\n* **Rolling Round:** 15 tháng 6 – 15 tháng 8 [Document 5].",
+          "source_ids": [
+            "news/article_01.md::chunk-7",
+            "news/article_04.md::chunk-7",
+            "news/article_01.md::chunk-5",
+            "news/article_01.md::chunk-1",
+            "news/article_04.md::chunk-13"
+          ],
+          "scores": {
+            "faithfulness": 0.6666666666666666,
+            "answer_relevance": 0.8725812613192262,
+            "context_recall": 1.0,
+            "context_precision": 0.19999999998
+          }
+        }
+      }
+    },
+    {
+      "question": "Which high-school science subjects are required for MD eligibility?",
+      "reference": "Biology, Chemistry, and one additional science course: Math or Physics.",
+      "configurations": {
+        "A": {
+          "answer": "Dựa trên ngữ cảnh được cung cấp, các môn khoa học bậc trung học phổ thông bắt buộc đối với chương trình Tiến sĩ Y khoa (MD) bao gồm:\n* Sinh học (Biology) [Document 1]\n* Hóa học (Chemistry) [Document 1]\n* Một môn khoa học bổ sung (Toán học hoặc Vật lý) [Document 1]\n\nNguồn: [Document 1 | Title: General Admissions - Admission | Source: news/article_04.md]",
+          "source_ids": [
+            "news/article_04.md::chunk-6",
+            "legal/GDL-ADM-002-V4.1_ENGLISH-LANGUAGE-REQUIREMENTS-FOR-UNDERGRADUATE-ADMISSIONS_4.5.2026.md::chunk-30",
+            "news/article_02.md::chunk-7",
+            "news/article_04.md::chunk-1",
+            "legal/GDL-ADM-002-V4.1_ENGLISH-LANGUAGE-REQUIREMENTS-FOR-UNDERGRADUATE-ADMISSIONS_4.5.2026.md::chunk-32"
+          ],
+          "scores": {
+            "faithfulness": 1.0,
+            "answer_relevance": 0.865950510647507,
+            "context_recall": 1.0,
+            "context_precision": 0.9999999999
+          }
+        },
+        "B": {
+          "answer": "Dựa trên ngữ cảnh được cung cấp, các môn khoa học bậc trung học phổ thông được yêu cầu để đủ điều kiện tham gia chương trình Bác sĩ Y khoa (MD) bao gồm Sinh học, Hóa học và một môn khoa học bổ sung (Toán hoặc Vật lý) [Document 1].\n\n**Citation:** [Document 1]",
+          "source_ids": [
+            "news/article_04.md::chunk-6",
+            "news/article_04.md::chunk-1",
+            "news/article_02.md::chunk-7",
+            "legal/GDL-ADM-002-V4.1_ENGLISH-LANGUAGE-REQUIREMENTS-FOR-UNDERGRADUATE-ADMISSIONS_4.5.2026.md::chunk-30",
+            "news/article_05.md::chunk-5"
+          ],
+          "scores": {
+            "faithfulness": 1.0,
+            "answer_relevance": 0.881117975838179,
+            "context_recall": 1.0,
+            "context_precision": 0.9999999999
+          }
+        }
+      }
+    },
+    {
+      "question": "What listed annual tuition does the VinUni FAQ give for Nursing?",
+      "reference": "349,650,000 VND per year.",
+      "configurations": {
+        "A": {
+          "answer": "Dựa trên tài liệu được cung cấp, mức học phí niêm yết hàng năm cho ngành Điều dưỡng (Nursing) tại VinUni là 349.650.000 VND (khoảng 15.000 USD) mỗi năm [Document 1].",
+          "source_ids": [
+            "news/article_05.md::chunk-2",
+            "news/article_05.md::chunk-3",
+            "legal/VU_TS03.VN_Quy-dinh-tai-chinh-va-Bieu-phi_AY26-27_22.7.2026_Student.md::chunk-23",
+            "news/article_04.md::chunk-0",
+            "news/article_05.md::chunk-14"
+          ],
+          "scores": {
+            "faithfulness": 1.0,
+            "answer_relevance": 0.8836500850357204,
+            "context_recall": 1.0,
+            "context_precision": 0.9999999999
+          }
+        },
+        "B": {
+          "answer": "Theo FAQ của VinUni, học phí niêm yết hàng năm cho chương trình Điều dưỡng (Nursing) là 349.650.000 VND (khoảng 15.000 USD) mỗi năm [Document 5].",
+          "source_ids": [
+            "news/article_05.md::chunk-3",
+            "news/article_05.md::chunk-2",
+            "news/article_05.md::chunk-16",
+            "news/article_05.md::chunk-14",
+            "news/article_04.md::chunk-0"
+          ],
+          "scores": {
+            "faithfulness": 1.0,
+            "answer_relevance": 0.8910307888090284,
+            "context_recall": 1.0,
+            "context_precision": 0.19999999998
+          }
+        }
+      }
+    },
+    {
+      "question": "How often is tuition paid according to the VinUni FAQ?",
+      "reference": "Twice a year, at the beginning of the Fall and Spring semesters.",
+      "configurations": {
+        "A": {
+          "answer": "Dựa trên các tài liệu được cung cấp, học phí được thanh toán hai lần một năm vào đầu mỗi học kỳ chính (Học kỳ mùa Thu và Học kỳ mùa Xuân) [Document 1].",
+          "source_ids": [
+            "news/article_05.md::chunk-4",
+            "legal/VU_TS03.VN_Quy-dinh-tai-chinh-va-Bieu-phi_AY26-27_22.7.2026_Student.md::chunk-73",
+            "legal/VU_TS03.VN_Quy-dinh-tai-chinh-va-Bieu-phi_AY26-27_22.7.2026_Student.md::chunk-7",
+            "legal/VU_TS03.VN_Quy-dinh-tai-chinh-va-Bieu-phi_AY26-27_22.7.2026_Student.md::chunk-53",
+            "news/article_05.md::chunk-14"
+          ],
+          "scores": {
+            "faithfulness": 0.6666666666666666,
+            "answer_relevance": 0.7904026296622076,
+            "context_recall": 1.0,
+            "context_precision": 0.99999999995
+          }
+        },
+        "B": {
+          "answer": "Theo FAQ của VinUni, học phí được thanh toán 2 lần một năm vào đầu mỗi học kỳ chính (Học kỳ mùa Thu và Học kỳ mùa Xuân) [Document 1].",
+          "source_ids": [
+            "news/article_05.md::chunk-4",
+            "news/article_05.md::chunk-14",
+            "news/article_05.md::chunk-3",
+            "legal/VU_TS03.VN_Quy-dinh-tai-chinh-va-Bieu-phi_AY26-27_22.7.2026_Student.md::chunk-73",
+            "news/article_05.md::chunk-1"
+          ],
+          "scores": {
+            "faithfulness": 1.0,
+            "answer_relevance": 0.9233422375465148,
+            "context_recall": 1.0,
+            "context_precision": 0.9999999999
+          }
+        }
+      }
+    },
+    {
+      "question": "What is the May 15 validity rule for recognized English test results?",
+      "reference": "Test results must have been obtained within the two years before May 15 of the admission year; May 15 is the validity cut-off for all admission rounds.",
+      "configurations": {
+        "A": {
+          "answer": "Dựa trên các tài liệu được cung cấp, quy định về ngày 15 tháng 5 như sau:\n\n* Các kết quả bài thi kiểm tra năng lực tiếng Anh phải được lấy trong vòng hai (02) năm trước ngày 15 tháng 5 của năm tuyển sinh liên quan [Document 5].\n* Ngày 15 tháng 5 đóng vai trò là ngày mốc giới hạn hiệu lực chính thức (official validity cut-off date) cho tất cả các vòng tuyển sinh trong năm học đó [Document 1, Document 5].\n* Ví dụ, đối với Năm học 2026–2027, ngày 15 tháng 5 năm 2026 là ngày mốc giới hạn hiệu lực chính thức cho tất cả các vòng tuyển sinh, và các kết quả thi có trước ngày 15 tháng 5 năm 2024 sẽ không được chấp nhận, bất kể thời hạn hiệu lực do đơn vị tổ chức thi quy định [Document 1].",
+          "source_ids": [
+            "legal/GDL-ADM-002-V4.1_ENGLISH-LANGUAGE-REQUIREMENTS-FOR-UNDERGRADUATE-ADMISSIONS_4.5.2026.md::chunk-12",
+            "legal/GDL-ADM-002-V4.1_ENGLISH-LANGUAGE-REQUIREMENTS-FOR-UNDERGRADUATE-ADMISSIONS_4.5.2026.md::chunk-11",
+            "legal/GDL-ADM-002-V4.1_ENGLISH-LANGUAGE-REQUIREMENTS-FOR-UNDERGRADUATE-ADMISSIONS_4.5.2026.md::chunk-18",
+            "legal/GDL-ADM-002-V4.1_ENGLISH-LANGUAGE-REQUIREMENTS-FOR-UNDERGRADUATE-ADMISSIONS_4.5.2026.md::chunk-3",
+            "legal/GDL-ADM-002-V4.1_ENGLISH-LANGUAGE-REQUIREMENTS-FOR-UNDERGRADUATE-ADMISSIONS_4.5.2026.md::chunk-13"
+          ],
+          "scores": {
+            "faithfulness": 1.0,
+            "answer_relevance": 0.7508752986034936,
+            "context_recall": 1.0,
+            "context_precision": 0.699999999965
+          }
+        },
+        "B": {
+          "answer": "Dựa trên các tài liệu được cung cấp, quy định về thời hạn hiệu lực tính đến ngày 15 tháng 5 đối với các kết quả kiểm tra tiếng Anh được công nhận như sau:\n\n* Kết quả kiểm tra năng lực tiếng Anh phải được lấy trong vòng hai (02) năm trước ngày 15 tháng 5 của năm tuyển sinh liên quan [Document 5].\n* Ngày 15 tháng 5 đóng vai trò là mốc thời gian chính thức cắt giảm hiệu lực (validity cut-off date) cho tất cả các đợt tuyển sinh trong năm học đó [Document 1, Document 5]. Ví dụ, cho năm học 2026–2027, ngày 15 tháng 5 năm 2026 là mốc cắt giảm hiệu lực chính thức và các kết quả thi có trước ngày 15 tháng 5 năm 2024 sẽ không được chấp nhận, bất kể thời hạn hiệu lực do đơn vị tổ chức thi quy định [Document 1].",
+          "source_ids": [
+            "legal/GDL-ADM-002-V4.1_ENGLISH-LANGUAGE-REQUIREMENTS-FOR-UNDERGRADUATE-ADMISSIONS_4.5.2026.md::chunk-12",
+            "legal/GDL-ADM-002-V4.1_ENGLISH-LANGUAGE-REQUIREMENTS-FOR-UNDERGRADUATE-ADMISSIONS_4.5.2026.md::chunk-11",
+            "legal/GDL-ADM-002-V4.1_ENGLISH-LANGUAGE-REQUIREMENTS-FOR-UNDERGRADUATE-ADMISSIONS_4.5.2026.md::chunk-13",
+            "legal/GDL-ADM-002-V4.1_ENGLISH-LANGUAGE-REQUIREMENTS-FOR-UNDERGRADUATE-ADMISSIONS_4.5.2026.md::chunk-18",
+            "news/article_04.md::chunk-7"
+          ],
+          "scores": {
+            "faithfulness": 1.0,
+            "answer_relevance": 0.8883426558141473,
+            "context_recall": 1.0,
+            "context_precision": 0.699999999965
+          }
+        }
+      }
+    },
+    {
+      "question": "Can an MD applicant receive conditional admission under English guideline GDL-ADM-002-V4.1?",
+      "reference": "No. MD applicants must fully meet the English entry requirements by August 30.",
+      "configurations": {
+        "A": {
+          "answer": "Không, điều kiện tuyển sinh có điều kiện (conditional admission) không áp dụng cho chương trình Bác sĩ Y khoa (MD) [Document 1]. Các ứng viên đăng ký chương trình MD phải đáp ứng hoàn toàn các yêu cầu đầu vào về tiếng Anh trước ngày 30 tháng 8 để được nhận và bắt đầu ghi danh chính thức vào chương trình [Document 1].",
+          "source_ids": [
+            "legal/GDL-ADM-002-V4.1_ENGLISH-LANGUAGE-REQUIREMENTS-FOR-UNDERGRADUATE-ADMISSIONS_4.5.2026.md::chunk-30",
+            "legal/GDL-ADM-002-V4.1_ENGLISH-LANGUAGE-REQUIREMENTS-FOR-UNDERGRADUATE-ADMISSIONS_4.5.2026.md::chunk-7",
+            "legal/GDL-ADM-002-V4.1_ENGLISH-LANGUAGE-REQUIREMENTS-FOR-UNDERGRADUATE-ADMISSIONS_4.5.2026.md::chunk-28",
+            "legal/GDL-SAM-004-V2.1_Scholarship-Financial-Aid_2025.md::chunk-1",
+            "legal/GDL-ADM-002-V4.1_ENGLISH-LANGUAGE-REQUIREMENTS-FOR-UNDERGRADUATE-ADMISSIONS_4.5.2026.md::chunk-0"
+          ],
+          "scores": {
+            "faithfulness": 1.0,
+            "answer_relevance": 0.8282138158949671,
+            "context_recall": 1.0,
+            "context_precision": 0.9999999999
+          }
+        },
+        "B": {
+          "answer": "Không, điều kiện tuyển sinh có điều kiện (conditional admission) không áp dụng đối với chương trình Bác sĩ Y khoa (Medical Doctor - MD) [Document 1]. Các ứng viên nộp đơn vào chương trình MD phải đáp ứng hoàn toàn các yêu cầu đầu vào về tiếng Anh trước ngày 30 tháng 8 để được nhận và bắt đầu chính thức ghi danh vào chương trình [Document 1].",
+          "source_ids": [
+            "legal/GDL-ADM-002-V4.1_ENGLISH-LANGUAGE-REQUIREMENTS-FOR-UNDERGRADUATE-ADMISSIONS_4.5.2026.md::chunk-30",
+            "legal/GDL-ADM-002-V4.1_ENGLISH-LANGUAGE-REQUIREMENTS-FOR-UNDERGRADUATE-ADMISSIONS_4.5.2026.md::chunk-0",
+            "news/article_02.md::chunk-7",
+            "legal/GDL-ADM-002-V4.1_ENGLISH-LANGUAGE-REQUIREMENTS-FOR-UNDERGRADUATE-ADMISSIONS_4.5.2026.md::chunk-19",
+            "legal/GDL-ADM-002-V4.1_ENGLISH-LANGUAGE-REQUIREMENTS-FOR-UNDERGRADUATE-ADMISSIONS_4.5.2026.md::chunk-7"
+          ],
+          "scores": {
+            "faithfulness": 1.0,
+            "answer_relevance": 0.7467472720018513,
+            "context_recall": 1.0,
+            "context_precision": 0.9999999999
+          }
+        }
+      }
+    },
+    {
+      "question": "Can an entry merit-based scholarship be upgraded to a higher scholarship level under GDL-SAM-004-V2.1?",
+      "reference": "No. Entry merit-based scholarships cover the entire period of study but are not eligible for scholarship-level upgrades.",
+      "configurations": {
+        "A": {
+          "answer": "Dựa trên context được cung cấp, không có thông tin nào trong các tài liệu nhắc đến việc học bổng đầu vào dựa trên năng lực (entry merit-based scholarship) có thể được nâng cấp lên mức học bổng cao hơn hay không theo GDL-SAM-004-V2.1. \n\nTuy nhiên, tài liệu `news/article_05.md` có đề cập chung rằng: *\"Entry scholarships awarded to students upon enrollment will apply for the entire duration of their studies and will not be considered for upgrade.\"* [Document 4]. \n\nVì thiếu evidence trực tiếp liên kết quy định này với mã văn bản GDL-SAM-004-V2.1 trong các đoạn trích dẫn, tôi từ chối xác minh chi tiết này theo đúng mã văn bản được hỏi.",
+          "source_ids": [
+            "legal/GDL-SAM-004-V2.1_Scholarship-Financial-Aid_2025.md::chunk-1",
+            "legal/GDL-SAM-004-V2.1_Scholarship-Financial-Aid_2025.md::chunk-14",
+            "legal/GDL-SAM-004-V2.1_Scholarship-Financial-Aid_2025.md::chunk-0",
+            "news/article_05.md::chunk-11",
+            "legal/GDL-SAM-004-V2.1_Scholarship-Financial-Aid_2025.md::chunk-9"
+          ],
+          "scores": {
+            "faithfulness": 0.0,
+            "answer_relevance": 0.0,
+            "context_recall": 1.0,
+            "context_precision": 0.249999999975
+          }
+        },
+        "B": {
+          "answer": "Dựa trên context được cung cấp, không có thông tin nào trong tài liệu \"GDL-SAM-004-V2.1\" đề cập đến việc học bổng đầu vào (entry merit-based scholarship) có thể được nâng cấp lên mức cao hơn hay không. \n\nTuy nhiên, tài liệu `news/article_05.md` có nêu rằng: *\"Entry scholarships awarded to students upon enrollment will apply for the entire duration of their studies and will not be considered for upgrade.\"* [Document 4]. \n\nVì thiếu evidence cụ thể từ chính văn bản GDL-SAM-004-V2.1 về vấn đề nâng cấp học bổng, tôi từ chối xác minh khẳng định này chỉ dựa trên tài liệu đó, ngoại trừ thông tin chung từ [Document 4].",
+          "source_ids": [
+            "legal/GDL-SAM-004-V2.1_Scholarship-Financial-Aid_2025.md::chunk-0",
+            "legal/GDL-SAM-004-V2.1_Scholarship-Financial-Aid_2025.md::chunk-1",
+            "legal/GDL-SAM-004-V2.1_Scholarship-Financial-Aid_2025.md::chunk-7",
+            "news/article_05.md::chunk-11",
+            "news/article_01.md::chunk-6"
+          ],
+          "scores": {
+            "faithfulness": 0.0,
+            "answer_relevance": 0.7808558083293978,
+            "context_recall": 1.0,
+            "context_precision": 0.249999999975
+          }
+        }
+      }
+    },
+    {
+      "question": "Theo biểu phí AY 2026–2027, học phí niêm yết mỗi năm của các chương trình cử nhân khác là bao nhiêu?",
+      "reference": "815.850.000 đồng/năm.",
+      "configurations": {
+        "A": {
+          "answer": "Theo biểu phí AY 2026–2027, học phí niêm yết mỗi năm của các chương trình cử nhân khác là **815.850.000/năm** [Document 1].",
+          "source_ids": [
+            "legal/VU_TS03.VN_Quy-dinh-tai-chinh-va-Bieu-phi_AY26-27_22.7.2026_Student.md::chunk-3",
+            "legal/VU_TS03.VN_Quy-dinh-tai-chinh-va-Bieu-phi_AY26-27_22.7.2026_Student.md::chunk-48",
+            "legal/VU_TS03.VN_Quy-dinh-tai-chinh-va-Bieu-phi_AY26-27_22.7.2026_Student.md::chunk-2",
+            "news/article_05.md::chunk-3",
+            "legal/VU_TS03.VN_Quy-dinh-tai-chinh-va-Bieu-phi_AY26-27_22.7.2026_Student.md::chunk-0"
+          ],
+          "scores": {
+            "faithfulness": 1.0,
+            "answer_relevance": 0.9903472484410528,
+            "context_recall": 1.0,
+            "context_precision": 0.7499999999625
+          }
+        },
+        "B": {
+          "answer": "Theo biểu phí AY 2026–2027, học phí niêm yết mỗi năm của các chương trình cử nhân khác là 815.850.000 VND/năm [Document 1].",
+          "source_ids": [
+            "legal/VU_TS03.VN_Quy-dinh-tai-chinh-va-Bieu-phi_AY26-27_22.7.2026_Student.md::chunk-3",
+            "legal/VU_TS03.VN_Quy-dinh-tai-chinh-va-Bieu-phi_AY26-27_22.7.2026_Student.md::chunk-2",
+            "legal/VU_TS03.VN_Quy-dinh-tai-chinh-va-Bieu-phi_AY26-27_22.7.2026_Student.md::chunk-48",
+            "legal/VU_TS03.VN_Quy-dinh-tai-chinh-va-Bieu-phi_AY26-27_22.7.2026_Student.md::chunk-51",
+            "legal/VU_TS03.VN_Quy-dinh-tai-chinh-va-Bieu-phi_AY26-27_22.7.2026_Student.md::chunk-49"
+          ],
+          "scores": {
+            "faithfulness": 0.0,
+            "answer_relevance": 0.9903472484410528,
+            "context_recall": 1.0,
+            "context_precision": 0.9999999999
+          }
+        }
+      }
+    }
+  ],
+  "summary": {
+    "A": {
+      "faithfulness": 0.8889,
+      "answer_relevance": 0.7913,
+      "context_recall": 0.9333,
+      "context_precision": 0.8133
+    },
+    "B": {
+      "faithfulness": 0.7778,
+      "answer_relevance": 0.8092,
+      "context_recall": 0.9333,
+      "context_precision": 0.65
+    }
+  }
+}

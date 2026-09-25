@@ -14,6 +14,7 @@ load_dotenv()
 
 STANDARDIZED_DIR = Path(__file__).parent.parent / "data" / "standardized"
 CHROMA_DIR = Path(__file__).parent.parent / "chroma_db"
+os.environ.setdefault("HF_HOME", str(Path(__file__).parent.parent / ".cache" / "huggingface"))
 
 CHUNK_SIZE = 500
 CHUNK_OVERLAP = 50

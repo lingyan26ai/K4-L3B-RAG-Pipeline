@@ -15,6 +15,8 @@ import os
 
 from dotenv import load_dotenv
 
+from .task5_semantic_search import semantic_search
+from .task9_retrieval_pipeline import SCORE_THRESHOLD
 from .task9_retrieval_pipeline import retrieve
 
 
@@ -132,6 +134,24 @@ def generate_with_citation(query: str, top_k: int = TOP_K) -> dict:
             "retrieval_source": "none",
         }
 
+    # Retrieval keeps hybrid results when PageIndex is unavailable. Do not pass
+    # those low-confidence results to the generator as factual evidence.
+    if chunks[0].get("retrieval_method") != "pageindex":
+        try:
+            dense = semantic_search(query, top_k=1)
+            if not dense or dense[0]["score"] < SCORE_THRESHOLD:
+                return {
+                    "answer": SAFE_REFUSAL,
+                    "sources": [],
+                    "retrieval_source": "none",
+                }
+        except Exception:
+            return {
+                "answer": SAFE_REFUSAL,
+                "sources": [],
+                "retrieval_source": "none",
+            }
+
     reordered = reorder_for_llm(chunks)
     context = format_context(reordered)
     user_message = f"Context:\n{context}\n\nQuestion: {query}"
@@ -149,7 +169,7 @@ def generate_with_citation(query: str, top_k: int = TOP_K) -> dict:
 
     return {
         "answer": answer,
-        "sources": chunks,
+        "sources": reordered,
         "retrieval_source": chunks[0].get("retrieval_method", "hybrid"),
     }
 

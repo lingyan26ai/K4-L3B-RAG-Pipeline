@@ -1,56 +1,19 @@
-# Individual contribution report
+# Báo cáo đóng góp cá nhân — Hà Anh Tuấn
 
-Mỗi thành viên copy template này thành:
+- Mã học viên: **Chưa được cung cấp; thành viên tự bổ sung trước khi nộp.**
+- Nhóm: Happy · Repository/branch: `K4-L3B-RAG-Pipeline` / `main`
 
-```text
-reports/<student-id>-<short-name>.md
-```
+## Phần việc có thể đối chiếu
 
-Giới hạn khuyến nghị: 1 trang, không chép lại README hoặc mô tả lý thuyết chung. Báo cáo không phải một bài pipeline cá nhân; mục đích là ghi nhận ownership và bằng chứng đóng góp trong sản phẩm nhóm.
+| Phần việc | Bằng chứng | Trạng thái |
+|---|---|---|
+| Task 10: tạo câu trả lời có trích dẫn và từ chối khi thiếu bằng chứng | `src/task10_generation.py`, commit `8f557ab` | Đã triển khai |
+| Giao diện chat Streamlit hiển thị câu trả lời và nguồn | `app.py`, commit `8f557ab` | Đã triển khai |
 
----
+Quyết định kỹ thuật thể hiện trong code: sắp lại các đoạn tài liệu trước khi gửi model, gắn nhãn nguồn trong context và trả câu từ chối an toàn khi không lấy được bằng chứng hoặc model lỗi. Các sửa lỗi cache embedding, thứ tự citation và kiểm tra độ tin cậy ngày 25/09/2026 là phần hoàn thiện chung sau commit trên, không tính vào đóng góp cá nhân của Tuấn.
 
-## Thông tin
+## Kiểm thử và giới hạn
 
-- Họ và tên:
-- Mã học viên:
-- Nhóm:
-- Repository/branch:
-
-## Phần việc đã thực hiện
-
-| Module/deliverable | Việc tôi trực tiếp làm | File/commit/PR | Trạng thái |
-|---|---|---|---|
-| | | | Done / Partial / Blocked |
-
-Chỉ kê khai công việc có thể đối chiếu bằng file, commit, pull request, test hoặc kết quả evaluation.
-
-## Quyết định kỹ thuật quan trọng
-
-Mô tả tối đa hai quyết định mà bạn trực tiếp tham gia:
-
-1. **Quyết định:**  
-   **Lý do/evidence:**  
-   **Trade-off:**
-
-2. **Quyết định:**  
-   **Lý do/evidence:**  
-   **Trade-off:**
-
-## Kiểm thử và kết quả
-
-- Test hoặc query tôi đã dùng:
-- Kết quả trước/sau nếu có:
-- Lỗi đã phát hiện và cách xử lý:
-
-## Điều còn hạn chế
-
-- Một hạn chế cụ thể của phần tôi làm:
-- Nếu có thêm thời gian, thay đổi đầu tiên tôi sẽ thực hiện:
-
-## Xác nhận đóng góp
-
-Tôi xác nhận nội dung trên phản ánh đúng phần việc của mình và có thể giải thích hoặc chạy lại trong buổi demo.
-
-- Ngày:
-- Tên thành viên:
+- Sau khi tích hợp, bộ test dự án đạt **20/20**; demo Gemini trả lời câu tuyển sinh có citation và từ chối câu ngoài chủ đề.
+- PageIndex chưa được kiểm chứng qua API thật vì chưa có `PAGEINDEX_API_KEY`.
+- Mã học viên và xác nhận cá nhân của Tuấn cần Tuấn tự bổ sung; nội dung ở đây chỉ dựa trên file/commit có thể kiểm tra.
