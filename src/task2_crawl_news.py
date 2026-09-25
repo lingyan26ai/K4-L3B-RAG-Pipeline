@@ -15,8 +15,14 @@ Cài browser trước khi chạy:
 
 import asyncio
 import json
-from datetime import datetime
+import os
+from datetime import datetime, timezone
 from pathlib import Path
+
+os.environ.setdefault(
+    "CRAWL4_AI_BASE_DIRECTORY",
+    str(Path(__file__).parent.parent / ".cache"),
+)
 
 from crawl4ai import AsyncWebCrawler
 
@@ -35,11 +41,19 @@ ARTICLE_URLS = [
 async def crawl_article(url: str) -> dict:
     async with AsyncWebCrawler() as crawler:
         result = await crawler.arun(url=url)
+        if not result.success or not result.markdown:
+            raise ValueError(f"Crawl returned no usable content: {url}")
+        content = str(result.markdown).strip()
+        if len(content) < 200:
+            raise ValueError(f"Crawl content is too short: {url}")
+        title = (result.metadata or {}).get("title", "").strip()
+        if not title:
+            raise ValueError(f"Crawl returned no title: {url}")
         return {
             "url": url,
-            "title": result.metadata.get("title", "Unknown"),
-            "date_crawled": datetime.now().isoformat(),
-            "content_markdown": result.markdown,
+            "title": title,
+            "date_crawled": datetime.now(timezone.utc).isoformat(),
+            "content_markdown": content,
         }
 
 

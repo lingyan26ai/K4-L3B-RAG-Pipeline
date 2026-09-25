@@ -11,10 +11,12 @@ Ví dụ tài liệu: học phí, học bổng, ký túc xá, quy trình đăng 
 Nếu website chặn crawler, hãy chọn nguồn công khai khác; không vượt WAF.
 """
 
+import json
 from pathlib import Path
 
 
 DATA_DIR = Path(__file__).parent.parent / "data" / "landing" / "legal"
+SOURCES_FILE = DATA_DIR / "sources.json"
 
 
 def setup_directory() -> None:
@@ -24,20 +26,27 @@ def setup_directory() -> None:
 
 
 def download_documents() -> None:
-    """Tải ít nhất 3 PDF/DOCX từ nguồn công khai."""
-    # TODO: Có thể tải thủ công hoặc dùng requests.
-    #
-    # Ví dụ:
-    # import requests
-    #
-    # sources = {
-    #     "policy-a.pdf": "https://example.edu/policy-a.pdf",
-    # }
-    # for filename, url in sources.items():
-    #     response = requests.get(url, timeout=30)
-    #     response.raise_for_status()
-    #     (DATA_DIR / filename).write_bytes(response.content)
-    raise NotImplementedError("Implement download_documents")
+    """Validate collected PDFs and fetch missing files with direct public URLs."""
+    import requests
+
+    sources = json.loads(SOURCES_FILE.read_text(encoding="utf-8"))
+    for filename, item in sources.items():
+        if Path(filename).name != filename or not filename.lower().endswith(".pdf"):
+            raise ValueError(f"Invalid source filename: {filename}")
+        path = DATA_DIR / filename
+        if not path.exists():
+            url = item["source_url"]
+            if not url.lower().endswith(".pdf"):
+                raise FileNotFoundError(f"Download {filename} manually from {url}")
+            response = requests.get(url, timeout=30)
+            response.raise_for_status()
+            if not response.content.startswith(b"%PDF-") or len(response.content) <= 1024:
+                raise ValueError(f"Invalid PDF response: {url}")
+            path.write_bytes(response.content)
+        with path.open("rb") as stream:
+            if path.stat().st_size <= 1024 or stream.read(5) != b"%PDF-":
+                raise ValueError(f"Invalid PDF file: {path}")
+        print(f"Ready: {path.name} | {item['source_url']}")
 
 
 if __name__ == "__main__":
