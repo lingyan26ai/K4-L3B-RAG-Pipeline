@@ -81,9 +81,9 @@ def call_llm(system_prompt: str, user_message: str) -> str:
         from google import genai
         from google.genai import types
 
-        api_key = os.getenv("GEMINI_API_KEY")
+        api_key = (os.getenv("GEMINI_API_KEY") or "").strip()
         client = genai.Client(api_key=api_key)
-        model = LLM_MODEL or "gemini-2.5-flash"
+        model = LLM_MODEL or "gemini-3.5-flash-lite"
         config = types.GenerateContentConfig(
             system_instruction=system_prompt,
             temperature=TEMPERATURE,

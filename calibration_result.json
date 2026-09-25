@@ -1,0 +1,69 @@
+{
+  "in_domain": [
+    {
+      "query": "VinUni scholarship financial aid support",
+      "best_score": 0.7134
+    },
+    {
+      "query": "What are the English requirements for undergraduate admission?",
+      "best_score": 0.7006
+    },
+    {
+      "query": "Chi phí học phí và quy định tài chính VinUni",
+      "best_score": 0.7523
+    },
+    {
+      "query": "How many colleges does VinUniversity list?",
+      "best_score": 0.6203
+    },
+    {
+      "query": "Which high-school science subjects are required for MD eligibility?",
+      "best_score": 0.7471
+    },
+    {
+      "query": "Transfer applicants credit transfer policy VinUniversity",
+      "best_score": 0.812
+    },
+    {
+      "query": "What are the three admission rounds and their dates at VinUniversity?",
+      "best_score": 0.7323
+    }
+  ],
+  "out_of_domain": [
+    {
+      "query": "Cách làm bánh pizza hải sản tại nhà đơn giản",
+      "best_score": 0.3362
+    },
+    {
+      "query": "What is the capital of France and its total population?",
+      "best_score": 0.317
+    },
+    {
+      "query": "Lịch thi đấu bóng đá giải Ngoại hạng Anh cuối tuần này",
+      "best_score": 0.4502
+    },
+    {
+      "query": "How to repair a broken iPhone screen at home",
+      "best_score": 0.4205
+    },
+    {
+      "query": "Công thức tính diện tích hình tam giác vuông",
+      "best_score": 0.4147
+    },
+    {
+      "query": "Thủ tục cấp hộ chiếu phổ thông tại Việt Nam",
+      "best_score": 0.4799
+    },
+    {
+      "query": "Who won the FIFA World Cup in 2022?",
+      "best_score": 0.3419
+    }
+  ],
+  "in_domain_min": 0.6203,
+  "in_domain_avg": 0.7254,
+  "in_domain_max": 0.812,
+  "out_of_domain_min": 0.317,
+  "out_of_domain_avg": 0.3943,
+  "out_of_domain_max": 0.4799,
+  "recommended_threshold": 0.55
+}
