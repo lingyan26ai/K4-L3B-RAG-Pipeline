@@ -1,7 +1,7 @@
 """Run the same 15-question, four-metric Ragas evaluation for dense and hybrid RAG.
 
 Run from the repository root: python -m group_project.evaluation.run_ragas
-Requires an OpenAI or Gemini key in .env. A small trial can use --limit 1.
+Requires an OpenAI, OpenRouter or Gemini key in .env. A small trial can use --limit 1.
 """
 
 import argparse
@@ -64,6 +64,17 @@ def make_scorers(provider: str, model: str):
         judge = llm_factory(model, client=client)
         embedding_model = os.getenv("RAGAS_EMBEDDING_MODEL") or "text-embedding-3-small"
         embeddings = embedding_factory("openai", model=embedding_model, client=client)
+    elif provider == "openrouter":
+        from openai import AsyncOpenAI
+        from ragas.embeddings.base import embedding_factory
+
+        client = AsyncOpenAI(
+            api_key=os.environ["OPENROUTER_API_KEY"],
+            base_url="https://openrouter.ai/api/v1",
+        )
+        judge = llm_factory(model, provider="openai", client=client)
+        embedding_model = os.getenv("RAGAS_EMBEDDING_MODEL") or "openai/text-embedding-3-small"
+        embeddings = embedding_factory("openai", model=embedding_model, client=client)
     elif provider == "gemini":
         from google import genai
         from openai import AsyncOpenAI
@@ -80,7 +91,7 @@ def make_scorers(provider: str, model: str):
         embedding_model = os.getenv("RAGAS_EMBEDDING_MODEL") or "gemini-embedding-001"
         embeddings = GoogleEmbeddings(client=client, model=embedding_model)
     else:
-        raise ValueError("Ragas runner supports LLM_PROVIDER=openai or gemini")
+        raise ValueError("Ragas runner supports LLM_PROVIDER=openai, openrouter or gemini")
 
     scorers = {
         "faithfulness": Faithfulness(llm=judge),
@@ -164,12 +175,18 @@ async def main() -> None:
         parser.error("--limit and --top-k must be positive")
 
     provider = LLM_PROVIDER.strip().lower()
-    key_name = {"openai": "OPENAI_API_KEY", "gemini": "GEMINI_API_KEY"}.get(provider)
+    key_name = {
+        "openai": "OPENAI_API_KEY",
+        "openrouter": "OPENROUTER_API_KEY",
+        "gemini": "GEMINI_API_KEY",
+    }.get(provider)
     if not key_name:
-        parser.error("Set LLM_PROVIDER=openai or gemini in .env")
+        parser.error("Set LLM_PROVIDER=openai, openrouter or gemini in .env")
     if not os.getenv(key_name, "").strip():
         parser.error(f"Set {key_name} in .env before running evaluation")
 
+    if provider == "openrouter" and not LLM_MODEL.strip():
+        parser.error("Set LLM_MODEL to an OpenRouter model ID in .env")
     generator_model = LLM_MODEL.strip() or (
         "gpt-4o-mini" if provider == "openai" else "gemini-3.5-flash-lite"
     )

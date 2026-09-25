@@ -59,7 +59,7 @@ def format_context(chunks: list[dict]) -> str:
 
 
 def call_llm(system_prompt: str, user_message: str) -> str:
-    """Gọi OpenAI, Gemini hoặc Anthropic theo cấu hình."""
+    """Gọi OpenAI, OpenRouter, Gemini hoặc Anthropic theo cấu hình."""
     provider = (LLM_PROVIDER or "").lower().strip()
 
     if provider == "openai":
@@ -70,6 +70,26 @@ def call_llm(system_prompt: str, user_message: str) -> str:
         model = LLM_MODEL or "gpt-4o-mini"
         response = client.chat.completions.create(
             model=model,
+            messages=[
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": user_message},
+            ],
+            temperature=TEMPERATURE,
+            top_p=TOP_P,
+        )
+        return response.choices[0].message.content or ""
+
+    if provider == "openrouter":
+        from openai import OpenAI
+
+        api_key = (os.getenv("OPENROUTER_API_KEY") or "").strip()
+        if not api_key:
+            raise ValueError("Set OPENROUTER_API_KEY in .env")
+        if not LLM_MODEL.strip():
+            raise ValueError("Set LLM_MODEL to an OpenRouter model ID in .env")
+        client = OpenAI(api_key=api_key, base_url="https://openrouter.ai/api/v1")
+        response = client.chat.completions.create(
+            model=LLM_MODEL.strip(),
             messages=[
                 {"role": "system", "content": system_prompt},
                 {"role": "user", "content": user_message},

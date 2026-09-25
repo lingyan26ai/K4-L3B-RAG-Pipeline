@@ -43,13 +43,20 @@ pytest -q
 streamlit run app.py
 ```
 
-Đánh giá lại cùng 15 câu bằng Gemini hoặc OpenAI đã cấu hình trong `.env`:
+Đánh giá lại cùng 15 câu bằng Gemini, OpenAI hoặc OpenRouter đã cấu hình trong `.env`:
 
 ```bash
 python -m group_project.evaluation.run_ragas
 ```
 
 Kết quả chi tiết được lưu ở `reports/ab_ragas_results.json`; báo cáo tóm tắt ở `group_project/evaluation/RESULT.md`. Nếu dùng PageIndex fallback, cần điền `PAGEINDEX_API_KEY` vào `.env` trước khi kiểm tra qua API thật.
+
+Để dùng OpenRouter, điền `LLM_PROVIDER=openrouter`, `LLM_MODEL=openai/gpt-4o-mini` (hoặc model ID khác hỗ trợ structured output) và `OPENROUTER_API_KEY` vào `.env`. Ragas dùng cùng model để chấm và mặc định dùng `openai/text-embedding-3-small` qua OpenRouter để tính answer relevance; các lượt gọi này có thể phát sinh phí. Trên PowerShell, đứng tại thư mục repo rồi chạy thử một câu trước khi đo toàn bộ:
+
+```powershell
+.\.venv\Scripts\python.exe -m group_project.evaluation.run_ragas --limit 1 --output reports/openrouter_trial.json
+.\.venv\Scripts\python.exe -m group_project.evaluation.run_ragas --output reports/openrouter_full.json
+```
 
 ## Lộ trình 3 giờ
 
